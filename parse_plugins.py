@@ -11,7 +11,7 @@ def plugins_parse():
     wordPressSoup = BeautifulSoup(link, 'html.parser')
     plugins_lists = wordPressSoup.find('ul')
     plugins = plugins_lists.find_all('li')
-    for plugin in plugins:
+    for plugin in plugins[0:20]:
         plugin_name = plugin.get_text(strip=True)
         plugin_folder_name = f'All/{plugin_name.replace("/", "").replace("-"," ").title()}'
         if os.path.exists(plugin_folder_name):

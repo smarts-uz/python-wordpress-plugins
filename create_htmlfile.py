@@ -7,7 +7,7 @@ def run_y2z():
         plugin_path = os.path.join('All', plugins_dir)
         if os.path.isdir(plugin_path):
             plugin_items_dirs = os.listdir(plugin_path)
-            for plugin_item_dir in plugin_items_dirs[0:1]:
+            for plugin_item_dir in plugin_items_dirs:
                 if plugin_item_dir.endswith('.url'):
                     url_file = os.path.join(plugin_path, plugin_item_dir)
                     html_name = plugin_item_dir.split('.')[0].title()
