@@ -20,7 +20,7 @@ def run_y2z():
                         else:
                             pass
                             execute = subprocess.Popen(
-                                [f'C:/Users/Administrator/Desktop/Work/Cmdline/y2z/1_2_1/monolith.exe', f'{url}', '-o',
+                                [f'y2z/1_2_1/monolith.exe', f'{url}', '-o',
                                  f'{html_file_path}.html'])
                             code = execute.wait()
                             with open(f'App/{html_name}.txt', 'w') as f:
