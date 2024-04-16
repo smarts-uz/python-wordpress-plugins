@@ -11,14 +11,20 @@ def plugin_title(plugin_name):
     plugin_url = f"https://wordpress.org/plugins/{plugin_name}"
     response = requests.get(plugin_url)
     soup = BeautifulSoup(response.text, 'html.parser')
-    plugin_folder_name = soup.find('h1', class_='plugin-title').get_text(strip=True)
+    try:
+        plugin_folder_name = soup.find('h1', class_='plugin-title')
+        unsupchar = ["*", '"' ,"/", "\\" ,"<", ">" ,":" ,"|", "?"]
+        for char in unsupchar:
+            plugin_folder_name = plugin_folder_name.replace(char,' ')
+        plugin_folder_name = plugin_folder_name.replace('  ',' ')
+    except:
+        plugin_folder_name = plugin_name
+
     if not os.path.exists(f'{src}/All/{plugin_folder_name}'):
         os.makedirs(f'{src}/All/{plugin_folder_name}')
-        print(f'Created folder: {src}/All/{plugin_folder_name}')
-        with open(f"{src}/All/{plugin_folder_name}/App.main", "w", encoding='utf-8') as file:
-            file.write(response.text)
     else:
-        print(f'Already exists folder: {src}/All/{plugin_folder_name}')
-
+        pass
+    with open(f"{src}/All/{plugin_folder_name}/App.main", "w",encoding='utf-8') as file:
+        file.write(response.text)
 
     return plugin_folder_name
