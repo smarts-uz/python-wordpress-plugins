@@ -27,7 +27,7 @@ def parse_picture():
                     for picture in pictures:
                         picture_name = picture.get_text(strip=True).replace('.','')
                         src_picture = picture.find('a')['href']
-                        if not os.path.exists(f"{plugin_path}/{picture_name}.png"):
+                        if not os.path.isfile(f"{plugin_path}/{picture_name}.png"):
                             with open(f'{plugin_path}/{picture_name}.png', 'wb') as f:
                                 response = hyperlink.urlopen(src_picture)
                                 print(src_picture)

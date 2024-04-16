@@ -16,16 +16,11 @@ def plugins_parse():
     wordPressSoup = BeautifulSoup(link, 'html.parser')
     plugins_lists = wordPressSoup.find('ul')
     plugins = plugins_lists.find_all('li')
-    for plugin in plugins[0:5]:
-        plugin_name = plugin.get_text(strip=True)
-        plugin_name = plugin_title(plugin_name=plugin_name)
+    for plugin in plugins[5:6]:
+        plugin_name_old = plugin.get_text(strip=True)
+        plugin_name = plugin_title(plugin_name=plugin_name_old)
         plugin_folder_name = f'{src}/All/{plugin_name}'
-        if os.path.exists(plugin_folder_name):
-            print(f'{plugin_folder_name} folder already exists')
-        else:
-            os.mkdir(plugin_folder_name)
-            print(f'{plugin_folder_name} folder created')
-            create_url(path=plugin_folder_name,name=plugin_name)
+        create_url(path=plugin_folder_name,name=plugin_name_old)
 
 
 plugins_parse()

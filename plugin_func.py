@@ -14,9 +14,11 @@ def plugin_title(plugin_name):
     plugin_folder_name = soup.find('h1', class_='plugin-title').get_text(strip=True)
     if not os.path.exists(f'{src}/All/{plugin_folder_name}'):
         os.makedirs(f'{src}/All/{plugin_folder_name}')
+        print(f'Created folder: {src}/All/{plugin_folder_name}')
+        with open(f"{src}/All/{plugin_folder_name}/App.main", "w", encoding='utf-8') as file:
+            file.write(response.text)
     else:
-        pass
-    with open(f"{src}/All/{plugin_folder_name}/App.main", "w",encoding='utf-8') as file:
-        file.write(response.text)
+        print(f'Already exists folder: {src}/All/{plugin_folder_name}')
+
 
     return plugin_folder_name
