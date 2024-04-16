@@ -1,5 +1,7 @@
 import os.path
 import os
+import time
+
 import requests
 from bs4 import BeautifulSoup
 
@@ -9,7 +11,12 @@ load_dotenv()
 src = os.getenv('src_path')
 def plugin_title(plugin_name):
     plugin_url = f"https://wordpress.org/plugins/{plugin_name}"
-    response = requests.get(plugin_url,timeout=60)
+    try:
+        response = requests.get(plugin_url,timeout=60)
+    except requests.exceptions.Timeout:
+        time.sleep(30)
+        print('Sleeping 30sec')
+        response = requests.get(plugin_url, timeout=60)
     soup = BeautifulSoup(response.text, 'html.parser')
     try:
         plugin_folder_name = soup.find('h1', class_='plugin-title')
