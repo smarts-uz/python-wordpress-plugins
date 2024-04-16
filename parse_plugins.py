@@ -16,11 +16,15 @@ def plugins_parse():
     wordPressSoup = BeautifulSoup(link, 'html.parser')
     plugins_lists = wordPressSoup.find('ul')
     plugins = plugins_lists.find_all('li')
-    for plugin in plugins[50:55]:
+    for plugin in plugins[1891:19000]:
         plugin_name_old = plugin.get_text(strip=True)
         plugin_name = plugin_title(plugin_name=plugin_name_old)
-        plugin_folder_name = f'{src}/All/{plugin_name}'
-        create_url(path=plugin_folder_name,name=plugin_name_old)
+        if plugin_name !=None:
+            plugin_folder_name = f'{src}/All/{plugin_name}'
+            create_url(path=plugin_folder_name, name=plugin_name_old)
+        else:
+            pass
+
 
 
 plugins_parse()
