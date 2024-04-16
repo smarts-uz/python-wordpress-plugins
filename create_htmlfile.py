@@ -1,10 +1,14 @@
 import os
 import subprocess
 import re
+from dotenv import load_dotenv
+load_dotenv()
+src = f'{os.getenv('src_path')}/All'
+src_app = f'{os.getenv('src_path')}/App'
 def run_y2z():
-    plugins_dirs = os.listdir('All')
+    plugins_dirs = os.listdir(src)
     for plugins_dir in plugins_dirs:
-        plugin_path = os.path.join('All', plugins_dir)
+        plugin_path = os.path.join(src, plugins_dir)
         if os.path.isdir(plugin_path):
             plugin_items_dirs = os.listdir(plugin_path)
             for plugin_item_dir in plugin_items_dirs:
@@ -15,7 +19,7 @@ def run_y2z():
                     with open(url_file, 'r') as f:
                         data = f.read()
                         url = re.findall(r'https://wordpress.org/plugins.+', data)[0]
-                        if os.path.exists(f"{html_file_path}.html"):
+                        if os.path.exists(f"{src_app}/{html_name}.txt"):
                             print(f'This html already created: {html_file_path}')
                         else:
                             pass
@@ -23,7 +27,7 @@ def run_y2z():
                                 [f'y2z/1_2_1/monolith.exe', f'{url}', '-o',
                                  f'{html_file_path}.html'])
                             code = execute.wait()
-                            with open(f'App/{html_name}.txt', 'w') as f:
+                            with open(f'{src_app}/{html_name}.txt', 'w') as f:
                                 f.write(html_name)
                                 print(f'{html_name} Plugin saved!!!!!!!!')
 

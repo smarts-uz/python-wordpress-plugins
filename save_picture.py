@@ -27,19 +27,26 @@ def parse_picture():
                     for picture in pictures:
                         picture_name = picture.get_text(strip=True).replace('.','')
                         src_picture = picture.find('a')['href']
-                        if not os.path.isfile(f"{plugin_path}/{picture_name}.png"):
-                            with open(f'{plugin_path}/{picture_name}.png', 'wb') as f:
+                        screen_path = os.path.join(plugin_path,'Screens')
+                        if not os.path.exists(screen_path):
+                            os.makedirs(screen_path)
+                        if not os.path.isfile(f"{screen_path}/{picture_name}.png"):
+                            with open(f'{screen_path}/{picture_name}.png', 'wb') as f:
                                 res = hyperlink.urlopen(src_picture, timeout=60)
                                 print(src_picture)
                                 f.write(res.read())
                                 print(f'Picture saved successfully {picture_name}')
+
+                        else:
+                            print(f'Picture already exists {picture_name}')
+
 
 
 
 
 
                 except:
-                    pass
+                    print('Photo not found')
 
 
 parse_picture()

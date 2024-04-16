@@ -9,7 +9,7 @@ src = f'{os.getenv('src_path')}/All'
 
 def plugins_elements():
     plugins_dirs = os.listdir(src)
-    for plugin_dir in plugins_dirs[0:1]:
+    for plugin_dir in plugins_dirs:
         plugin_path = os.path.join(src, plugin_dir)
         plugin_in_dirs = os.listdir(plugin_path)
         for plugin_in_dir in plugin_in_dirs:
