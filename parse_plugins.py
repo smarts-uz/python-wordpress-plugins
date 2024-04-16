@@ -12,7 +12,7 @@ load_dotenv()
 
 src = os.getenv('src_path')
 def plugins_parse():
-    link = hyperlink.urlopen('http://plugins.svn.wordpress.org/')
+    link = hyperlink.urlopen('http://plugins.svn.wordpress.org/',timeout=60)
     wordPressSoup = BeautifulSoup(link, 'html.parser')
     plugins_lists = wordPressSoup.find('ul')
     plugins = plugins_lists.find_all('li')

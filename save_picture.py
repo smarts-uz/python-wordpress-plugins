@@ -18,7 +18,7 @@ def parse_picture():
                 with open(plugins_url_path, 'r') as f:
                     data = f.read()
                     url = re.findall(r'https://wordpress.org/plugins.+', data)[0]
-                response = requests.get(url)
+                response = requests.get(url,timeout=60)
                 picture_soup = BeautifulSoup(response.text, 'html.parser')
                 try:
                     screenshots = picture_soup.find('div',class_='plugin-screenshots')
@@ -29,9 +29,9 @@ def parse_picture():
                         src_picture = picture.find('a')['href']
                         if not os.path.isfile(f"{plugin_path}/{picture_name}.png"):
                             with open(f'{plugin_path}/{picture_name}.png', 'wb') as f:
-                                response = hyperlink.urlopen(src_picture)
+                                res = hyperlink.urlopen(src_picture, timeout=60)
                                 print(src_picture)
-                                f.write(response.read())
+                                f.write(res.read())
                                 print(f'Picture saved successfully {picture_name}')
 
 
