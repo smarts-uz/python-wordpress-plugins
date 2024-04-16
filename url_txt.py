@@ -1,7 +1,7 @@
 import os
 def create_url(path,name):
     try:
-        if not os.path.isdir(f"{path}/{name.replace("/","")}.url"):
+        if not os.path.isfile(f"{path}/{name.replace("/","")}.url"):
             with open(f'{path}/{name.replace("/", "")}.url', mode='w', encoding='utf-8') as file:
                 a = '{000214A0-0000-0000-C000-000000000046}'
                 str = f"""[{a}]

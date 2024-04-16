@@ -22,9 +22,13 @@ def plugin_title(plugin_name):
 
     if not os.path.exists(f'{src}/All/{plugin_folder_name}'):
         os.makedirs(f'{src}/All/{plugin_folder_name}')
+        print(f'Created folder: {src}/All/{plugin_folder_name}')
+    else:
+        print(f'Folder already exists: {src}/All/{plugin_folder_name}')
+    if not os.path.isfile(f"{src}/All/{plugin_folder_name}/App.main"):
+        with open(f"{src}/All/{plugin_folder_name}/App.main", "w", encoding='utf-8') as file:
+            file.write(response.text)
     else:
         pass
-    with open(f"{src}/All/{plugin_folder_name}/App.main", "w",encoding='utf-8') as file:
-        file.write(response.text)
 
     return plugin_folder_name

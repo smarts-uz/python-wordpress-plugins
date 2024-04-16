@@ -12,7 +12,7 @@ def parse_picture():
     for plugin_dir in plugins_dirs:
         plugin_path = os.path.join(src, plugin_dir)
         plugin_in_dirs = os.listdir(plugin_path)
-        for plugin_in_dir in plugin_in_dirs[0:1]:
+        for plugin_in_dir in plugin_in_dirs:
             if plugin_in_dir.endswith('.url'):
                 plugins_url_path = os.path.join(plugin_path, plugin_in_dir)
                 with open(plugins_url_path, 'r') as f:
