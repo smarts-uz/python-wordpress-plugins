@@ -19,12 +19,13 @@ def plugin_title(plugin_name):
         response = requests.get(plugin_url, timeout=60)
     soup = BeautifulSoup(response.text, 'html.parser')
     try:
-        plugin_folder_name = soup.find('h1', class_='plugin-title')
+        plugin_folder_name = soup.find('h1', class_='plugin-title').get_text()
         unsupchar = ["*", '"' ,"/", "\\" ,"<", ">" ,":" ,"|", "?"]
         for char in unsupchar:
             plugin_folder_name = plugin_folder_name.replace(char,' ')
-        plugin_folder_name = plugin_folder_name.replace('  ',' ')
-    except:
+        plugin_folder_name = plugin_folder_name.replace('  ',' ').strip()
+    except Exception as e:
+        print(e)
         plugin_folder_name = plugin_name
 
     if not os.path.exists(f'{src}/All/{plugin_folder_name}'):
