@@ -20,15 +20,15 @@ def plugin_title(plugin_name):
     if response.status_code == 200:
         soup = BeautifulSoup(response.text, 'html.parser')
         try:
-            plugin_folder_name = soup.find('h1', class_='plugin-title').get_text()
-            unsupchar = ["*", '"', "/", "\\", "<", ">", ":", "|", "?"]
+            plugin_folder_name = soup.find('h1', class_='plugin-title').get_text(strip=True,separator=' ')
+            unsupchar = ["*", '"', "/", "\\", "<", ">", ":", "|", "?","\t",'..']
             for char in unsupchar:
                 plugin_folder_name = plugin_folder_name.replace(char, ' ')
             plugin_folder_name = plugin_folder_name.replace('  ', ' ').strip()
         except Exception as e:
             print(e)
             plugin_folder_name = plugin_name
-
+        print(plugin_folder_name)
         if not os.path.exists(f'{src}/All/{plugin_folder_name}'):
             os.makedirs(f'{src}/All/{plugin_folder_name}')
             print(f'Created folder: {src}/All/{plugin_folder_name}')

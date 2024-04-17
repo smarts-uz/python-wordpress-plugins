@@ -5,4 +5,6 @@
 # import urllib.request as hyperlink
 # response = hyperlink.urlopen(url)
 #
-# print(response.read())
+import os
+
+print(os.path.exists('a:/All/Easy Document Embedder – Embed Word, excel, Powerpoint, Pdf file and more../App.main'))
