@@ -24,6 +24,8 @@ def plugin_title(plugin_name):
             unsupchar = ["*", '"', "/", "\\", "<", ">", ":", "|", "?"]
             for char in unsupchar:
                 plugin_folder_name = plugin_folder_name.replace(char, ' ')
+            if plugin_folder_name[-1] == '.':
+                plugin_folder_name = plugin_folder_name.replace('.','')
             plugin_folder_name = plugin_folder_name.replace('  ', ' ').strip()
         except Exception as e:
             print(e)
