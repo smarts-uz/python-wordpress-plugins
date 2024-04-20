@@ -9,7 +9,8 @@ from django.db import models
 
 class Plugin(models.Model):
     slug = models.CharField(max_length=255, unique=True)
-    name = models.CharField(max_length=255)
+    folder_path = models.CharField(max_length=255,null=True,blank=True)
+    name = models.CharField(max_length=255,null=True,blank=True)
     zipfile = models.BooleanField(default=False)
     screenshot = models.BooleanField(default=False)
     elements = models.BooleanField(default=False)
