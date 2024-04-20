@@ -3,7 +3,7 @@ sys.dont_write_bytecode = True
 
 # Django specific settings
 import os
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_orm.settings')
 import django
 django.setup()
 import os
@@ -30,7 +30,6 @@ def run_y2z():
                         if os.path.exists(f"{src_app}/{html_name}.txt"):
                             print(f'This html already created: {html_file_path}')
                         else:
-                            pass
                             execute = subprocess.Popen(
                                 [f'y2z/1_2_1/monolith.exe', f'{url}', '-o',
                                  f'{html_file_path}.html'])

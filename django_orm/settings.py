@@ -1,5 +1,7 @@
 import os
-
+from dotenv import load_dotenv
+load_dotenv()
+src_path = os.getenv('src_path')
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -11,7 +13,7 @@ DEFAULT_AUTO_FIELD='django.db.models.AutoField'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+        "NAME": os.path.join(src_path, "db.sqlite3"),
     }
 }
 
@@ -33,4 +35,4 @@ DATABASES = {
 }
 """
 
-INSTALLED_APPS = ("db",)
+INSTALLED_APPS = ("django_orm.db",)

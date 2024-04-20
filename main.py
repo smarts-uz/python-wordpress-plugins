@@ -6,19 +6,16 @@ these settings as is, and skip to START OF APPLICATION section below """
 
 # Turn off bytecode generation
 import sys
-
-from Parsing.parse_plugins import plugins_parse
-
 sys.dont_write_bytecode = True
 
 # Django specific settings
 import os
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_orm.settings')
 import django
 django.setup()
 
+from Parsing.parse_plugins import plugins_parse
 # Import your models for use in your script
-from db.models import Plugin
 import click
 
 

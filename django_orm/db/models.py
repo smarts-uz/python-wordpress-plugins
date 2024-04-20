@@ -9,6 +9,7 @@ from django.db import models
 
 class Plugin(models.Model):
     slug = models.CharField(max_length=255, unique=True)
+    url = models.URLField(max_length=255,default='')
     folder_path = models.CharField(max_length=255,null=True,blank=True)
     name = models.CharField(max_length=255,null=True,blank=True)
     zipfile = models.BooleanField(default=False)

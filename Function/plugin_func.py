@@ -1,5 +1,4 @@
 import os.path
-import os
 import time
 import sys
 sys.dont_write_bytecode = True
@@ -9,7 +8,7 @@ import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings')
 import django
 django.setup()
-from db.models import Plugin
+from django_orm.db.models import Plugin
 import requests
 from bs4 import BeautifulSoup
 
