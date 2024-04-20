@@ -1,0 +1,49 @@
+import sys
+sys.dont_write_bytecode = True
+# Django specific settings
+import os
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_orm.settings')
+import django
+django.setup()
+import os
+import subprocess
+import re
+from dotenv import load_dotenv
+from bs4 import BeautifulSoup
+load_dotenv()
+src = f'{os.getenv('src_path')}/All'
+src_app = f'{os.getenv('src_path')}/App'
+import requests
+def download():
+    plugins_dirs = os.listdir(src)
+    for plugins_dir in plugins_dirs:
+        plugin_path = os.path.join(src, plugins_dir)
+        if os.path.isdir(plugin_path):
+            plugin_items_dirs = os.listdir(plugin_path)
+            for plugin_item_dir in plugin_items_dirs:
+                if plugin_item_dir.endswith('.html'):
+                    html_file = plugin_item_dir
+                    html_file_path = os.path.join(plugin_path, plugin_item_dir)
+                    with open(html_file_path, 'rb') as f:
+                        html_body = f.read()
+                    soup = BeautifulSoup(html_body, 'html.parser')
+                    try:
+                        container = soup.find('div', class_='plugin-actions')
+                        download_url = container.find('a', class_='plugin-download button download-button button-large')['href']
+                        zipfile_name = download_url.split('/')[-1]
+                        response = requests.get(download_url,timeout=30, allow_redirects=False)
+                        zipfile_path = os.path.join(plugin_path, 'Installer')
+                        if not os.path.exists(zipfile_path):
+                            os.makedirs(zipfile_path)
+                            if response.status_code == 200:
+                                with open(f"{zipfile_path}/{zipfile_name}", 'wb') as f:
+                                    f.write(response.content)
+                                    print(f'Downloaded {zipfile_name} successfully!')
+
+
+                    except:
+                        pass
+
+
+
+download()
