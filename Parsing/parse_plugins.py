@@ -27,7 +27,7 @@ def plugins_parse():
     wordPressSoup = BeautifulSoup(link, 'html.parser')
     plugins_lists = wordPressSoup.find('ul')
     plugins = plugins_lists.find_all('li')
-    for plugin in plugins[1100:]:
+    for plugin in plugins[1113:]:
         plugin_name_old = plugin.get_text(strip=True)
         try:
             slug = Plugin.objects.get(slug=plugin_name_old)
