@@ -7,22 +7,29 @@
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 
+
+class DjangoMigrations(models.Model):
+    app = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
+    applied = models.DateTimeField()
+
+    class Meta:
+        managed = False
+        db_table = 'django_migrations'
+
+
 class Plugin(models.Model):
-    slug = models.CharField(max_length=255, unique=True)
+    slug = models.CharField(max_length=255)
     url = models.CharField(max_length=255)
-    folder_path = models.CharField(max_length=255,null=True,blank=True)
-    name = models.CharField(max_length=255,null=True,blank=True)
-    zipfile = models.CharField(max_length=255,null=True,blank=True,default=None)
-    # zipfile = models.CharField(max_length=255,null=True,blank=True)
-    screenshot = models.BooleanField(default=False)
-    elements = models.BooleanField(default=False)
+    folder_path = models.CharField(max_length=255, blank=True, null=True)
+    name = models.CharField(max_length=255, blank=True, null=True)
+    zipfile = models.CharField(max_length=255, blank=True, null=True)
+    screenshot = models.BooleanField(default=None)
+    elements = models.BooleanField(default=None)
     demo = models.CharField(max_length=255)
-    html = models.CharField(max_length=255,null=True,blank=True)
+    html = models.CharField(max_length=255, blank=True, null=True)
+    owner_name = models.CharField(max_length=255,blank=True, null=True)
 
-
-
-
-
-    def _str_(self):
-        return self.slug
-
+    class Meta:
+        managed = False
+        db_table = 'plugin'

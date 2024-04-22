@@ -33,7 +33,7 @@ def plugins_parse():
             slug = Plugin.objects.get(slug=plugin_name_old)
             print(f'Plugin {plugin_name_old} already exists')
         except Plugin.DoesNotExist:
-            slug = Plugin.objects.create(slug=plugin_name_old)
+            slug = Plugin.objects.create(slug=plugin_name_old,screenshot=False,elements=False)
             print('Plugin\'s slug has been created',slug.slug)
             plugin_name = plugin_title(plugin_name=plugin_name_old)
             if plugin_name != None:

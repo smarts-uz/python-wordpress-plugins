@@ -52,6 +52,7 @@ def download_v2():
     plugins = Plugin.objects.filter(zipfile=None)
     for plugin in plugins:
         plugin_path = plugin.folder_path
+        print(plugin_path)
         html_file_path = os.path.join(plugin.folder_path, plugin.html)
         with open(html_file_path, 'rb') as f:
             html_body = f.read()
@@ -64,13 +65,15 @@ def download_v2():
             zipfile_path = os.path.join(plugin_path, 'Installer')
             if not os.path.exists(zipfile_path):
                 os.makedirs(zipfile_path)
-                if response.status_code == 200:
+            if response.status_code == 200:
+                if not os.path.exists(f"{zipfile_path}/{zipfile_name}"):
                     with open(f"{zipfile_path}/{zipfile_name}", 'wb') as f:
                         f.write(response.content)
                         print(f'Downloaded {zipfile_name} successfully!')
-                        plugin.html = zipfile_name
-                        plugin.save()
-                        print(f'Updated zipfile name: {zipfile_name} successfully!')
+                plugin.zipfile = zipfile_name
+                plugin.save()
+                print(f'Updated zipfile name: {zipfile_name} successfully!')
+
 
 
         except:

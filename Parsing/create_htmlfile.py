@@ -1,6 +1,5 @@
 import sys
 
-from Parsing.run_y2z_cmd import run_2
 
 sys.dont_write_bytecode = True
 # Django specific settings
@@ -11,6 +10,8 @@ django.setup()
 from django_orm.db.models import Plugin
 import os
 import subprocess
+from Parsing.run_y2z_cmd import run_2
+
 import re
 import time
 from dotenv import load_dotenv
