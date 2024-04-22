@@ -102,4 +102,3 @@ def parse_picture_v2():
         plugin.save()
         print(f'Picture updated successfully {plugin.screenshot}')
 
-parse_picture_v2()

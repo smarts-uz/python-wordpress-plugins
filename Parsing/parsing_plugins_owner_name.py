@@ -79,4 +79,3 @@ def owner_name_v2():
 
 
 
-owner_name_v2()

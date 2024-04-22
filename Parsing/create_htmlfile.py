@@ -49,6 +49,7 @@ def run_y2z_v2():
     for plugin in plugins:
         html_file_path = os.path.join(plugin.folder_path, f'{plugin.name}')
         html_name = plugin.name
+        print(html_name)
         # if os.path.exists(f"{src_app}/{plugin.name}.txt"):
         #     print(f'This html already created: {html_file_path}')
         # else:
@@ -81,4 +82,3 @@ def run_y2z_v2():
 
 
 
-run_y2z_v2()

@@ -50,4 +50,3 @@ def plugins_parse():
 
 
 
-plugins_parse()

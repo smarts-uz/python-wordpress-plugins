@@ -34,7 +34,7 @@ def create_txt_file(folder_path, file_name, rate, count):
     except Exception as e:
         print(f"Error creating text file {txt_file_name}: {e}")
 
-print("hello world")
+
 
 def process_folder(folder_path):
     html_files = get_html_files(folder_path)

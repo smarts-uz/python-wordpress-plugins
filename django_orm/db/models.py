@@ -11,6 +11,7 @@ from django.db import models
 
 
 
+
 class DjangoMigrations(models.Model):
     app = models.CharField(max_length=255)
     name = models.CharField(max_length=255)
@@ -27,12 +28,13 @@ class Plugin(models.Model):
     folder_path = models.CharField(max_length=255, blank=True, null=True)
     name = models.CharField(max_length=255, blank=True, null=True)
     zipfile = models.CharField(max_length=255, blank=True, null=True)
-    screenshot = models.BooleanField(default=False)
-    elements = models.BooleanField(default=False)
+    screenshot = models.BooleanField()
+    elements = models.BooleanField()
     demo = models.CharField(max_length=255)
     html = models.CharField(max_length=255, blank=True, null=True)
-    owner_name = models.CharField(max_length=255,blank=True, null=True)
-    unused = models.BooleanField(default=False)
+    owner_name = models.CharField(blank=True, null=True)
+    unused = models.BooleanField(blank=True, null=True)
+    fivestars = models.IntegerField(blank=True, null=True)
 
     class Meta:
         managed = False
