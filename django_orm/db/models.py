@@ -32,7 +32,7 @@ class Plugin(models.Model):
     elements = models.BooleanField()
     demo = models.CharField(max_length=255)
     html = models.CharField(max_length=255, blank=True, null=True)
-    owner_name = models.CharField(blank=True, null=True)
+    owner_name = models.CharField(max_length=255,blank=True, null=True)
     unused = models.BooleanField(blank=True, null=True)
     fivestars = models.IntegerField(blank=True, null=True)
 
