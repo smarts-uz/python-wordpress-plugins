@@ -6,6 +6,15 @@ these settings as is, and skip to START OF APPLICATION section below """
 
 # Turn off bytecode generation
 import sys
+
+from Parsing.create_htmlfile import run_y2z_v2
+from Parsing.download_zip_file import download_v2
+from Parsing.parser_plugins_elements import plugins_elements_v2
+from Parsing.parsing_plugins_owner_name import owner_name_v2
+from Parsing.plugin_description import unused_plugin
+from Parsing.rating import get_rating
+from Parsing.save_picture import parse_picture_v2
+
 sys.dont_write_bytecode = True
 
 # Django specific settings
@@ -27,6 +36,20 @@ def plugin():
 def parse():
     plugins_parse()
 
+
+
+
+
+@plugin.command(help='Create asset file for plugins')
+def create_asset():
+    run_y2z_v2()
+    parse_picture_v2()
+    get_rating()
+    get_rating()
+    download_v2()
+    plugins_elements_v2()
+    owner_name_v2()
+    unused_plugin()
 
 
 try:
