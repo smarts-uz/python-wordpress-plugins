@@ -48,5 +48,34 @@ def download():
                         pass
 
 
+def download_v2():
+    plugins = Plugin.objects.filter(zipfile=None)
+    for plugin in plugins:
+        plugin_path = plugin.folder_path
+        html_file_path = os.path.join(plugin.folder_path, plugin.html)
+        with open(html_file_path, 'rb') as f:
+            html_body = f.read()
+        soup = BeautifulSoup(html_body, 'html.parser')
+        try:
+            container = soup.find('div', class_='plugin-actions')
+            download_url = container.find('a', class_='plugin-download button download-button button-large')['href']
+            zipfile_name = download_url.split('/')[-1]
+            response = requests.get(download_url, timeout=30, allow_redirects=False)
+            zipfile_path = os.path.join(plugin_path, 'Installer')
+            if not os.path.exists(zipfile_path):
+                os.makedirs(zipfile_path)
+                if response.status_code == 200:
+                    with open(f"{zipfile_path}/{zipfile_name}", 'wb') as f:
+                        f.write(response.content)
+                        print(f'Downloaded {zipfile_name} successfully!')
+                        plugin.html = zipfile_name
+                        plugin.save()
+                        print(f'Updated zipfile name: {zipfile_name} successfully!')
 
-download()
+
+        except:
+            pass
+
+
+
+download_v2()
