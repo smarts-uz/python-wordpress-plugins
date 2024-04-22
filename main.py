@@ -52,6 +52,11 @@ def create_asset():
     unused_plugin()
 
 
+@plugin.command(help='Delete or update plugin')
+@click.argument('plugin_name',help='Name of plugin to delete or update')
+@click.argument('--update', default=False)
+def update(plugin_name, update):
+    pass
 try:
     if __name__ == '__main__':
         plugin()
