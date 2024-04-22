@@ -9,14 +9,15 @@ from django.db import models
 
 class Plugin(models.Model):
     slug = models.CharField(max_length=255, unique=True)
-    url = models.URLField(max_length=255,default='')
+    url = models.CharField(max_length=255)
     folder_path = models.CharField(max_length=255,null=True,blank=True)
     name = models.CharField(max_length=255,null=True,blank=True)
     zipfile = models.BooleanField(default=False)
     screenshot = models.BooleanField(default=False)
     elements = models.BooleanField(default=False)
-    demo = models.CharField(max_length=255, default=False)
-    html = models.BooleanField(default=False)
+    demo = models.CharField(max_length=255)
+    html = models.CharField(max_length=255,null=True,blank=True)
+
 
 
 

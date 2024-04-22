@@ -27,9 +27,9 @@ def create_url(path,name):
 
         else:
             print(f'url file:{path}/{name.replace("/","")}.url already exists')
-        plugin = Plugin.objects.get(slug=name)
-        plugin.url = f"https://wordpress.org/plugins/{name}"
-        plugin.save()
-        print(f'Created url file:https://wordpress.org/plugins/{name} success')
     except Exception as e:
         print(e)
+
+
+# plugin = Plugin.objects.get(pk=11)
+# print(plugin.url)

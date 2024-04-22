@@ -6,8 +6,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_orm.settings')
 import django
 django.setup()
 import os
-import subprocess
-import re
+from django_orm.db.models import Plugin
 from dotenv import load_dotenv
 from bs4 import BeautifulSoup
 load_dotenv()
@@ -23,6 +22,7 @@ def download():
             for plugin_item_dir in plugin_items_dirs:
                 if plugin_item_dir.endswith('.html'):
                     html_file = plugin_item_dir
+                    plugin = Plugin.objects.get(html=html_file)
                     html_file_path = os.path.join(plugin_path, plugin_item_dir)
                     with open(html_file_path, 'rb') as f:
                         html_body = f.read()
@@ -39,6 +39,9 @@ def download():
                                 with open(f"{zipfile_path}/{zipfile_name}", 'wb') as f:
                                     f.write(response.content)
                                     print(f'Downloaded {zipfile_name} successfully!')
+                                    plugin.html = zipfile_name
+                                    plugin.save()
+                                    print(f'Updated zipfile name: {zipfile_name} successfully!')
 
 
                     except:

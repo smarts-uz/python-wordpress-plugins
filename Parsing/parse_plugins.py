@@ -3,7 +3,7 @@ sys.dont_write_bytecode = True
 
 # Django specific settings
 import os
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_orm.settings')
 import django
 django.setup()
 from bs4 import BeautifulSoup
@@ -33,15 +33,19 @@ def plugins_parse():
             slug = Plugin.objects.get(slug=plugin_name_old)
             print(f'Plugin {plugin_name_old} already exists')
         except Plugin.DoesNotExist:
-            slug = Plugin(slug=plugin_name_old)
-            slug.save()
-            print('Plugin\'s slug has been created')
+            slug = Plugin.objects.create(slug=plugin_name_old)
+            print('Plugin\'s slug has been created',slug.pk)
             plugin_name = plugin_title(plugin_name=plugin_name_old)
             if plugin_name != None:
                 plugin_folder_name = f'{src}/All/{plugin_name}'
                 create_url(path=plugin_folder_name, name=plugin_name_old)
+                slug.folder_path = plugin_folder_name
+                slug.name = plugin_name
+                slug.url = f"https://wordpress.org/plugins/{plugin_name_old}"
             else:
                 pass
+            slug.save()
+
 
 
 

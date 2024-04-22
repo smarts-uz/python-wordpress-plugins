@@ -1,14 +1,15 @@
 import sys
 sys.dont_write_bytecode = True
-
 # Django specific settings
 import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_orm.settings')
 import django
 django.setup()
+from django_orm.db.models import Plugin
 import os
 import subprocess
 import re
+import time
 from dotenv import load_dotenv
 load_dotenv()
 src = f'{os.getenv('src_path')}/All'
@@ -37,6 +38,10 @@ def run_y2z():
                             with open(f'{src_app}/{html_name}.txt', 'w') as f:
                                 f.write(html_name)
                                 print(f'{html_name} Plugin saved!!!!!!!!')
+                                plugin = Plugin.objects.get(url=url)
+                                plugin.html = html_name
+                                plugin.save()
+                                print(f'Updated {html_name} successfully!')
 
 
 
