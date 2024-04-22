@@ -1,4 +1,13 @@
+
+import sys
+sys.dont_write_bytecode = True
+
+# Django specific settings
 import os
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_orm.settings')
+import django
+django.setup()
+from django_orm.db.models import Plugin
 def create_url(path,name):
     try:
         if not os.path.isfile(f"{path}/{name.replace("/","")}.url"):
@@ -15,7 +24,12 @@ def create_url(path,name):
                 file.write(str)
 
                 print(f'Created url file:{path}/{name.replace("/","")}.url')
+
         else:
             print(f'url file:{path}/{name.replace("/","")}.url already exists')
     except Exception as e:
         print(e)
+
+
+# plugin = Plugin.objects.get(pk=11)
+# print(plugin.url)

@@ -1,7 +1,14 @@
 import os.path
-import os
 import time
+import sys
+sys.dont_write_bytecode = True
 
+# Django specific settings
+import os
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings')
+import django
+django.setup()
+from django_orm.db.models import Plugin
 import requests
 from bs4 import BeautifulSoup
 
@@ -10,6 +17,7 @@ load_dotenv()
 
 src = os.getenv('src_path')
 def plugin_title(plugin_name):
+    plugin = Plugin.objects.get(slug=plugin_name)
     plugin_url = f"https://wordpress.org/plugins/{plugin_name}"
     try:
         response = requests.get(plugin_url, timeout=30, allow_redirects=False)
@@ -33,6 +41,9 @@ def plugin_title(plugin_name):
         print(plugin_folder_name)
         if not os.path.exists(f'{src}/All/{plugin_folder_name}'):
             os.makedirs(f'{src}/All/{plugin_folder_name}')
+            plugin.folder_path = f'{src}/All/{plugin_folder_name}'
+            plugin.save()
+            print(f'Created {plugin.folder_path}')
             print(f'Created folder: {src}/All/{plugin_folder_name}')
         else:
             print(f'Folder already exists: {src}/All/{plugin_folder_name}')
