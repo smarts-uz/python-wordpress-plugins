@@ -8,6 +8,9 @@
 from django.db import models
 
 
+
+
+
 class DjangoMigrations(models.Model):
     app = models.CharField(max_length=255)
     name = models.CharField(max_length=255)
@@ -24,11 +27,12 @@ class Plugin(models.Model):
     folder_path = models.CharField(max_length=255, blank=True, null=True)
     name = models.CharField(max_length=255, blank=True, null=True)
     zipfile = models.CharField(max_length=255, blank=True, null=True)
-    screenshot = models.BooleanField(default=None)
-    elements = models.BooleanField(default=None)
+    screenshot = models.BooleanField(default=False)
+    elements = models.BooleanField(default=False)
     demo = models.CharField(max_length=255)
     html = models.CharField(max_length=255, blank=True, null=True)
     owner_name = models.CharField(max_length=255,blank=True, null=True)
+    unused = models.BooleanField(default=False)
 
     class Meta:
         managed = False
