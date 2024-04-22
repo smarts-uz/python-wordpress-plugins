@@ -1,4 +1,7 @@
 import sys
+
+from Parsing.run_y2z_cmd import run_2
+
 sys.dont_write_bytecode = True
 # Django specific settings
 import os
@@ -31,10 +34,7 @@ def run_y2z():
                         if os.path.exists(f"{src_app}/{html_name}.txt"):
                             print(f'This html already created: {html_file_path}')
                         else:
-                            execute = subprocess.Popen(
-                                [f'y2z/1_2_1/monolith.exe', f'{url}', '-o',
-                                 f'{html_file_path}.html'])
-                            code = execute.wait()
+                            return_code = run_2(html_file_path=html_file_path,url=url)
                             with open(f'{src_app}/{html_name}.txt', 'w') as f:
                                 f.write(html_name)
                                 print(f'{html_name} Plugin saved!!!!!!!!')
@@ -43,6 +43,22 @@ def run_y2z():
                                 plugin.save()
                                 print(f'Updated {html_name} successfully!')
 
+def run_y2z_v2():
+    plugins = Plugin.objects.filter(html=None)
+    for plugin in plugins:
+        html_file_path = os.path.join(plugin.folder_path, f'{plugin.name}')
+        html_name = plugin.name
+        # if os.path.exists(f"{src_app}/{plugin.name}.txt"):
+        #     print(f'This html already created: {html_file_path}')
+        # else:
+        return_code = run_2(html_file_path=html_file_path, url=plugin.url)
+        with open(f'{src_app}/{html_name}.txt', 'w') as f:
+            f.write(html_name)
+            print(f'{html_name} Plugin saved!!!!!!!!')
+        plugin = Plugin.objects.get(url=plugin.url)
+        plugin.html = f'{html_name}.html'
+        plugin.save()
+        print(f'Updated {html_name} successfully!')
 
 
 
@@ -52,4 +68,13 @@ def run_y2z():
 
 
 
-run_y2z()
+
+
+
+
+
+
+
+
+
+run_y2z_v2()
