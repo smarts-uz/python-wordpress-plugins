@@ -29,11 +29,9 @@ def plugins_parse(start:int,end:int):
     wordPressSoup = BeautifulSoup(link, 'html.parser')
     plugins_lists = wordPressSoup.find('ul')
     plugins = plugins_lists.find_all('li')
-    key = len(Plugin.objects.all())
-    print(key)
-    if key !=0:
-        key -=1
+    k = start
     for plugin in plugins[start:end]:
+        print(f'current: {k} | end: {end}')
         plugin_name_old = plugin.get_text(strip=True)
         try:
             slug = Plugin.objects.get(slug=plugin_name_old)
@@ -52,6 +50,7 @@ def plugins_parse(start:int,end:int):
             else:
                 pass
             slug.save()
+        k += 1
 
 
 
