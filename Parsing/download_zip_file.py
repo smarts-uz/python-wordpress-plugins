@@ -51,9 +51,9 @@ def download():
                         pass
 
 
-def download_v2():
+def download_v2(start,end):
     plugins = Plugin.objects.filter(zipfile=None)
-    for plugin in plugins:
+    for plugin in plugins[start:end]:
         if plugin.html != None:
             plugin_path = plugin.folder_path
             print(plugin_path)

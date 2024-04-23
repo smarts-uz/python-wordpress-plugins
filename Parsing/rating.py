@@ -18,9 +18,9 @@ src_app = f'{os.getenv('src_path')}/App'
 import requests
 
 
-def get_rating():
+def get_rating(start,end):
     plugins = Plugin.objects.filter(fivestars=None)
-    for plugin in plugins:
+    for plugin in plugins[start:end]:
         if plugin.html != None:
             plugin_path = plugin.folder_path
             html_file_path = os.path.join(plugin.folder_path, plugin.html)

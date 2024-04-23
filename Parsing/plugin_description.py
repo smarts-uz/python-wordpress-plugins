@@ -53,9 +53,9 @@ def plugin_desc():
 
 
 
-def unused_plugin():
+def unused_plugin(start,end):
     plugins = Plugin.objects.filter(unused=False)
-    for plugin in plugins:
+    for plugin in plugins[start:end]:
         plugin_path = plugin.folder_path
         if plugin.html != None:
             html_file_path = os.path.join(plugin.folder_path, plugin.html)
