@@ -32,7 +32,7 @@ def download():
                         download_url = container.find('a', class_='plugin-download button download-button button-large')['href']
                         zipfile_name = download_url.split('/')[-1]
                         response = requests.get(download_url,timeout=30, allow_redirects=False)
-                        zipfile_path = os.path.join(plugin_path, 'Installer')
+                        zipfile_path = os.path.join(plugin_path, 'Portable')
                         if not os.path.exists(zipfile_path):
                             os.makedirs(zipfile_path)
                             if response.status_code == 200:
@@ -62,7 +62,7 @@ def download_v2():
             download_url = container.find('a', class_='plugin-download button download-button button-large')['href']
             zipfile_name = download_url.split('/')[-1]
             response = requests.get(download_url, timeout=30, allow_redirects=False)
-            zipfile_path = os.path.join(plugin_path, 'Installer')
+            zipfile_path = os.path.join(plugin_path, 'Portable')
             if not os.path.exists(zipfile_path):
                 os.makedirs(zipfile_path)
             if response.status_code == 200:

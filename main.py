@@ -6,7 +6,14 @@ these settings as is, and skip to START OF APPLICATION section below """
 
 # Turn off bytecode generation
 import sys
-
+sys.dont_write_bytecode = True
+# Django specific settings
+import os
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_orm.settings')
+import django
+django.setup()
+from django_orm.db.models import Plugin
+from Parsing.parse_plugins import plugins_parse
 from Parsing.create_htmlfile import run_y2z_v2
 from Parsing.download_zip_file import download_v2
 from Parsing.parser_plugins_elements import plugins_elements_v2
@@ -15,15 +22,6 @@ from Parsing.plugin_description import unused_plugin
 from Parsing.rating import get_rating
 from Parsing.save_picture import parse_picture_v2
 
-sys.dont_write_bytecode = True
-
-# Django specific settings
-import os
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_orm.settings')
-import django
-django.setup()
-
-from Parsing.parse_plugins import plugins_parse
 # Import your models for use in your script
 import click
 
@@ -53,10 +51,13 @@ def create_asset():
 
 
 # @plugin.command(help='Delete or update plugin')
-# @click.argument('plugin_name',help='Name of plugin to delete or update')
-# @click.argument('--update', default=False)
-# def update(plugin_name, update):
-#     pass
+# @click.argument('plugin_url',help='Url of plugin to update')
+# def update(plugin_url):
+#     plugin = Plugin.objects.get(url=plugin_url)
+
+
+
+
 try:
     if __name__ == '__main__':
         plugin()
