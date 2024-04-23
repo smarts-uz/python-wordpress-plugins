@@ -44,14 +44,16 @@ def parse(start:int,end:int):
 
 
 @plugin.command(help='Create asset file for plugins')
-def create_asset():
-    run_y2z_v2()
-    parse_picture_v2()
-    get_rating()
-    download_v2()
-    plugins_elements_v2()
-    owner_name_v2()
-    unused_plugin()
+@click.option('--start')
+@click.option('--end')
+def create_asset(start,end):
+    run_y2z_v2(int(start),int(end))
+    parse_picture_v2(int(start),int(end))
+    get_rating(int(start),int(end))
+    download_v2(int(start),int(end))
+    plugins_elements_v2(int(start),int(end))
+    owner_name_v2(int(start),int(end))
+    unused_plugin(int(start),int(end))
 
 
 @plugin.command(help='Delete or update plugin')

@@ -68,9 +68,9 @@ def parse_picture():
 
 
 
-def parse_picture_v2():
+def parse_picture_v2(start,end):
     plugins = Plugin.objects.filter(screenshot=False)
-    for plugin in plugins:
+    for plugin in plugins[start:end]:
         if plugin.html !=None:
             plugin_path = plugin.folder_path
             html_file_path = os.path.join(plugin.folder_path, plugin.html)

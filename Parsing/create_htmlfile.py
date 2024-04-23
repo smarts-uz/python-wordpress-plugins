@@ -42,9 +42,9 @@ def run_y2z():
                                 plugin.save()
                                 print(f'Updated {html_name} successfully!')
 
-def run_y2z_v2():
-    plugins = Plugin.objects.filter(html=None)
-    for plugin in plugins:
+def run_y2z_v2(start,end):
+    plugins = Plugin.objects.filter(html=None).order_by('pk')
+    for plugin in plugins[start:end]:
         if plugin.folder_path != None:
             html_file_path = os.path.join(plugin.folder_path, f'{plugin.name}')
             html_name = plugin.name

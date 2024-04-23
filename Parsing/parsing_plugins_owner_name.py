@@ -54,9 +54,9 @@ def owner_name():
 
 
 
-def owner_name_v2():
+def owner_name_v2(start,end):
     plugins = Plugin.objects.filter(owner_name=None)
-    for plugin in plugins:
+    for plugin in plugins[start:end]:
         if plugin.html != None:
             plugin_path = plugin.folder_path
             html_file_path = os.path.join(plugin.folder_path, plugin.html)

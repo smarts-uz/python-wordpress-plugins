@@ -77,9 +77,9 @@ def plugins_elements():
 
 
 
-def plugins_elements_v2():
+def plugins_elements_v2(start,end):
     plugins = Plugin.objects.filter(elements=False)
-    for pl in plugins:
+    for pl in plugins[start:end]:
         if pl.html != None:
             plugin_path = pl.folder_path
             html_file_path = os.path.join(pl.folder_path, pl.html)
