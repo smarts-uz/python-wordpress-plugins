@@ -43,7 +43,6 @@ def create_asset():
     run_y2z_v2()
     parse_picture_v2()
     get_rating()
-    get_rating()
     download_v2()
     plugins_elements_v2()
     owner_name_v2()
