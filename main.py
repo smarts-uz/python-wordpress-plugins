@@ -24,7 +24,7 @@ from Parsing.parsing_plugins_owner_name import owner_name_v2
 from Parsing.plugin_description import unused_plugin
 from Parsing.rating import get_rating
 from Parsing.save_picture import parse_picture_v2
-
+import datetime
 # Import your models for use in your script
 import click
 
@@ -56,6 +56,9 @@ def create_asset():
 @click.argument('plugin_url')
 def update(plugin_url):
     plugin_update(plugin_url=plugin_url)
+    plugin = Plugin.objects.get(url=plugin_url)
+    plugin.last_updated = datetime.datetime.now()
+    plugin.save()
     print('Plugin\'s data  updated')
 
 

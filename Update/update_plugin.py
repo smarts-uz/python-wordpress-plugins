@@ -57,4 +57,3 @@ def plugin_update(plugin_url):
 
 
 
-plugin_update("https://wordpress.org/plugins/0-errors/")

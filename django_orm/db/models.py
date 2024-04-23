@@ -7,19 +7,33 @@
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 
+
+
+
+class DjangoMigrations(models.Model):
+    app = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
+    applied = models.DateTimeField()
+
+    class Meta:
+        managed = False
+        db_table = 'django_migrations'
+
+
 class Plugin(models.Model):
     slug = models.CharField(max_length=255)
     url = models.CharField(max_length=255)
     folder_path = models.CharField(max_length=255, blank=True, null=True)
     name = models.CharField(max_length=255, blank=True, null=True)
     zipfile = models.CharField(max_length=255, blank=True, null=True)
-    screenshot = models.BooleanField()
-    elements = models.BooleanField()
-    demo = models.CharField(max_length=255)
+    screenshot = models.BooleanField(default=False)
+    elements = models.BooleanField(default=False)
+    demo = models.CharField(max_length=255,blank=True, null=True)
     html = models.CharField(max_length=255, blank=True, null=True)
     owner_name = models.CharField(max_length=255,blank=True, null=True)
-    unused = models.BooleanField(blank=True, null=True)
+    unused = models.BooleanField(default=False)
     fivestars = models.IntegerField(blank=True, null=True)
+    last_updated = models.DateTimeField(blank=True, null=True)
 
     class Meta:
         managed = False
