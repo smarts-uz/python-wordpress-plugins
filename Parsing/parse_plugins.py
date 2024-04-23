@@ -20,7 +20,7 @@ load_dotenv()
 src = os.getenv('src_path')
 src_all = os.path.join(src, 'All')
 src_app = os.path.join(src, 'App')
-def plugins_parse():
+def plugins_parse(start:int,end:int):
     if not os.path.isdir(src_all):
         os.mkdir(src_all)
     if not os.path.isdir(src_app):
@@ -33,7 +33,7 @@ def plugins_parse():
     print(key)
     if key !=0:
         key -=1
-    for plugin in plugins[key:]:
+    for plugin in plugins[start:end]:
         plugin_name_old = plugin.get_text(strip=True)
         try:
             slug = Plugin.objects.get(slug=plugin_name_old)
