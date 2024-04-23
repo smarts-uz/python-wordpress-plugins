@@ -1,4 +1,6 @@
 import sys
+import time
+
 sys.dont_write_bytecode = True
 
 # Django specific settings
@@ -27,7 +29,11 @@ def plugins_parse():
     wordPressSoup = BeautifulSoup(link, 'html.parser')
     plugins_lists = wordPressSoup.find('ul')
     plugins = plugins_lists.find_all('li')
-    for plugin in plugins:
+    key = len(Plugin.objects.all())
+    print(key)
+    if key !=0:
+        key -=1
+    for plugin in plugins[key:]:
         plugin_name_old = plugin.get_text(strip=True)
         try:
             slug = Plugin.objects.get(slug=plugin_name_old)
@@ -35,6 +41,7 @@ def plugins_parse():
         except Plugin.DoesNotExist:
             slug = Plugin.objects.create(slug=plugin_name_old,screenshot=False,elements=False)
             print('Plugin\'s slug has been created',slug.slug)
+        if slug.url == None or slug.folder_path ==None or slug.name==None:
             plugin_name = plugin_title(plugin_name=plugin_name_old)
             if plugin_name != None:
                 plugin_folder_name = f'{src}/All/{plugin_name}'
