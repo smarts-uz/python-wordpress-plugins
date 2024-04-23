@@ -6,6 +6,9 @@ these settings as is, and skip to START OF APPLICATION section below """
 
 # Turn off bytecode generation
 import sys
+
+from Update.update_plugin import plugin_update
+
 sys.dont_write_bytecode = True
 # Django specific settings
 import os
@@ -49,10 +52,11 @@ def create_asset():
     unused_plugin()
 
 
-# @plugin.command(help='Delete or update plugin')
-# @click.argument('plugin_url',help='Url of plugin to update')
-# def update(plugin_url):
-#     plugin = Plugin.objects.get(url=plugin_url)
+@plugin.command(help='Delete or update plugin')
+@click.argument('plugin_url')
+def update(plugin_url):
+    plugin_update(plugin_url=plugin_url)
+    print('Plugin\'s data  updated')
 
 
 
