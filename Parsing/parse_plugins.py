@@ -30,7 +30,7 @@ def plugins_parse(start:int,end:int):
     plugins_lists = wordPressSoup.find('ul')
     plugins = plugins_lists.find_all('li')
     k = start
-    for plugin in plugins[start:end]:
+    for plugin in plugins[start:]:
         print(f'current: {k} | end: {end}')
         plugin_name_old = plugin.get_text(strip=True)
         try:
