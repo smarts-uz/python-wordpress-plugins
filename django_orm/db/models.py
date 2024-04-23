@@ -28,12 +28,11 @@ class Plugin(models.Model):
     zipfile = models.CharField(max_length=255, blank=True, null=True)
     screenshot = models.BooleanField(default=False)
     elements = models.BooleanField(default=False)
-    demo = models.CharField(max_length=255,blank=True, null=True)
     html = models.CharField(max_length=255, blank=True, null=True)
     owner_name = models.CharField(max_length=255,blank=True, null=True)
     unused = models.BooleanField(default=False)
     fivestars = models.IntegerField(blank=True, null=True)
-    last_updated = models.DateTimeField(blank=True, null=True)
+    last_updated = models.DateField(blank=True, null=True)
 
     class Meta:
         managed = False

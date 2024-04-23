@@ -1,4 +1,6 @@
 import sys
+import time
+
 sys.dont_write_bytecode = True
 # Django specific settings
 import os
@@ -30,6 +32,7 @@ def func_screens(html_file_path,screen_path,plugin):
                 with open(f'{screen_path}/{picture_name}.png', 'wb') as f:
                     res = hyperlink.urlopen(src_picture, timeout=60)
                     print(src_picture)
+                    time.sleep(5)
                     f.write(res.read())
                     print(f'Picture saved successfully {picture_name}')
 

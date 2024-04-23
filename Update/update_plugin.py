@@ -31,29 +31,32 @@ def plugin_update(plugin_url):
     plugin.slug = slug
     print(f'Slug updated: {slug}')
     plugin_path = plugin.folder_path
-    shutil.rmtree(plugin_path, ignore_errors=True)
-    print(f'Path deleted: {plugin_path}')
-    plugin_name = plugin_title(plugin_name=slug)
-    if not os.path.exists(f'{src}/All/{plugin_name}'):
-        os.makedirs(f'{src}/All/{plugin_name}')
-    create_url(path=plugin_path, name=slug)
-    plugin.url = plugin_url
-    html_file_path = os.path.join(plugin.folder_path, f'{plugin.name}')
-    html_name = plugin.name
-    return_code = run_2(html_file_path=html_file_path, url=plugin.url)
-    screen_path = os.path.join(plugin.folder_path, 'Screens')
-    if not os.path.exists(screen_path):
-        os.makedirs(screen_path)
-    html_file_dst = os.path.join(plugin.folder_path,plugin.html)
-    func_screens(html_file_dst, screen_path, plugin)
-    func_rating(html_file_path=html_file_dst,plugin=plugin)
-    func_download(html_file_path=html_file_dst,plugin=plugin)
-    func_elements(html_file_path=html_file_dst,pl=plugin)
-    func_ownername(html_file_path=html_file_dst,plugin=plugin)
-    func_unused(html_file_path=html_file_dst,plugin=plugin)
+    if plugin.html != None:
+        shutil.rmtree(plugin_path, ignore_errors=True)
+        print(f'Path deleted: {plugin_path}')
+        plugin_name = plugin_title(plugin_name=slug)
+        if not os.path.exists(f'{src}/All/{plugin_name}'):
+            os.makedirs(f'{src}/All/{plugin_name}')
+        create_url(path=plugin_path, name=slug)
+        plugin.url = plugin_url
+        html_file_path = os.path.join(plugin.folder_path, f'{plugin.name}')
+        html_name = plugin.name
+        return_code = run_2(html_file_path=html_file_path, url=plugin.url)
+        screen_path = os.path.join(plugin.folder_path, 'Screens')
+        if not os.path.exists(screen_path):
+            os.makedirs(screen_path)
+        print(plugin.html)
+        html_file_dst = os.path.join(plugin.folder_path, plugin.html)
+        func_screens(html_file_dst, screen_path, plugin)
+        func_rating(html_file_path=html_file_dst, plugin=plugin)
+        func_download(html_file_path=html_file_dst, plugin=plugin)
+        func_elements(html_file_path=html_file_dst, pl=plugin)
+        func_ownername(html_file_path=html_file_dst, plugin=plugin)
+        func_unused(html_file_path=html_file_dst, plugin=plugin)
     plugin.save()
+
 
     
 
 
-
+# plugin_update('https://wordpress.org/plugins/0-errors/')
