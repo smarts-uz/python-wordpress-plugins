@@ -1,4 +1,7 @@
 import sys
+
+from Function.download_zip import func_download
+
 sys.dont_write_bytecode = True
 # Django specific settings
 import os
@@ -54,30 +57,31 @@ def download_v2():
         plugin_path = plugin.folder_path
         print(plugin_path)
         html_file_path = os.path.join(plugin.folder_path, plugin.html)
-        with open(html_file_path, 'rb') as f:
-            html_body = f.read()
-        soup = BeautifulSoup(html_body, 'html.parser')
-        try:
-            container = soup.find('div', class_='plugin-actions')
-            download_url = container.find('a', class_='plugin-download button download-button button-large')['href']
-            zipfile_name = download_url.split('/')[-1]
-            response = requests.get(download_url, timeout=30, allow_redirects=False)
-            zipfile_path = os.path.join(plugin_path, 'Portable')
-            if not os.path.exists(zipfile_path):
-                os.makedirs(zipfile_path)
-            if response.status_code == 200:
-                if not os.path.exists(f"{zipfile_path}/{zipfile_name}"):
-                    with open(f"{zipfile_path}/{zipfile_name}", 'wb') as f:
-                        f.write(response.content)
-                        print(f'Downloaded {zipfile_name} successfully!')
-                plugin.zipfile = zipfile_name
-                plugin.save()
-                print(f'Updated zipfile name: {zipfile_name} successfully!')
-
-
-
-        except:
-            pass
+        func_download(html_file_path,plugin)
+        # with open(html_file_path, 'rb') as f:
+        #     html_body = f.read()
+        # soup = BeautifulSoup(html_body, 'html.parser')
+        # try:
+        #     container = soup.find('div', class_='plugin-actions')
+        #     download_url = container.find('a', class_='plugin-download button download-button button-large')['href']
+        #     zipfile_name = download_url.split('/')[-1]
+        #     response = requests.get(download_url, timeout=30, allow_redirects=False)
+        #     zipfile_path = os.path.join(plugin_path, 'Portable')
+        #     if not os.path.exists(zipfile_path):
+        #         os.makedirs(zipfile_path)
+        #     if response.status_code == 200:
+        #         if not os.path.exists(f"{zipfile_path}/{zipfile_name}"):
+        #             with open(f"{zipfile_path}/{zipfile_name}", 'wb') as f:
+        #                 f.write(response.content)
+        #                 print(f'Downloaded {zipfile_name} successfully!')
+        #         plugin.zipfile = zipfile_name
+        #         plugin.save()
+        #         print(f'Updated zipfile name: {zipfile_name} successfully!')
+        #
+        #
+        #
+        # except:
+        #     pass
 
 
 
