@@ -36,8 +36,8 @@ def plugin():
 @plugin.command(help='Parsing plugins name from https://ps.w.org/')
 @click.option('--start')
 @click.option('--end')
-def parse(start,end):
-    plugins_parse(start,end)
+def parse(start:int,end:int):
+    plugins_parse(int(start),int(end))
 
 
 
