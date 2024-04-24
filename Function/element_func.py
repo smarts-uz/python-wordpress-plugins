@@ -28,7 +28,7 @@ def func_elements(html_file_path,pl):
                     tag_path = os.path.join(pl.folder_path, f'#{tag.text}.txt')
                     if not os.path.isfile(tag_path):
                         with open(tag_path, 'w') as f:
-                            f.write(tag.text)
+                            # f.write(tag.text)
                             print(f'Created txt file {tag_path}')
                     else:
                         print(f'File {tag_path} already exists')

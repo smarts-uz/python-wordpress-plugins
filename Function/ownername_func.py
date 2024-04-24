@@ -30,8 +30,8 @@ def func_ownername(html_file_path,plugin):
             owner_name = f'By {owner_name_1}'
             owner_name_path = os.path.join(plugin.folder_path, f"{owner_name}.txt")
             with open(owner_name_path, 'w') as f:
-                f.write(owner_name)
-            print(f'[OS]Owner name: {owner_name} added to folder!!!!')
+                # f.write(owner_name)
+                print(f'[OS]Owner name: {owner_name} added to folder!!!!')
             plugin.owner_name = owner_name_1
             plugin.save()
             print(f'[DB] Owner name: updated to {owner_name_1}')

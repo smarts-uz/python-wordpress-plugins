@@ -28,8 +28,8 @@ def func_unused(html_file_path,plugin):
             plugin_desc_path = os.path.join(plugin.folder_path, description_path)
             if not os.path.isfile(plugin_desc_path):
                 with open(plugin_desc_path, 'w') as f:
-                    f.write(description)
-                print(f'{plugin_desc_path} has been created txt file')
+                    # f.write(description)
+                    print(f'{plugin_desc_path} has been created txt file')
             else:
                 print(f'{plugin_desc_path} already exists')
         plugin.unused = True
