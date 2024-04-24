@@ -47,13 +47,17 @@ def parse(start:int,end:int):
 @click.option('--start')
 @click.option('--end')
 def create_asset(start,end):
-    run_y2z_v2(int(start),int(end))
-    parse_picture_v2(int(start),int(end))
-    get_rating(int(start),int(end))
-    download_v2(int(start),int(end))
-    plugins_elements_v2(int(start),int(end))
-    owner_name_v2(int(start),int(end))
-    unused_plugin(int(start),int(end))
+    try:
+        run_y2z_v2(int(start), int(end))
+        parse_picture_v2(int(start), int(end))
+        get_rating(int(start), int(end))
+        download_v2(int(start), int(end))
+        plugins_elements_v2(int(start), int(end))
+        owner_name_v2(int(start), int(end))
+        unused_plugin(int(start), int(end))
+    except Exception as e:
+        print(e)
+
 
 
 @plugin.command(help='Delete or update plugin')
