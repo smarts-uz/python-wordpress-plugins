@@ -39,7 +39,7 @@ def plugins_parse(start:int,end:int):
         except Plugin.DoesNotExist:
             slug = Plugin.objects.create(slug=plugin_name_old,screenshot=False,elements=False)
             print('Plugin\'s slug has been created',slug.slug)
-        if slug.url == None or slug.folder_path ==None or slug.name==None:
+        if  slug.folder_path ==None:
             plugin_name = plugin_title(plugin_name=plugin_name_old)
             if plugin_name != None:
                 plugin_folder_name = f'{src}/All/{plugin_name}'

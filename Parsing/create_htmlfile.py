@@ -44,8 +44,11 @@ def run_y2z():
 
 def run_y2z_v2(start,end):
     plugins = Plugin.objects.filter(html=None).order_by('pk')
+    k = start
     for plugin in plugins[start:end]:
+        print(f'current: {k} | end:{end}')
         if plugin.folder_path != None:
+
             html_file_path = os.path.join(plugin.folder_path, f'{plugin.name}')
             html_name = plugin.name
             print(html_name)
@@ -63,6 +66,7 @@ def run_y2z_v2(start,end):
             plugin.html = f'{html_name}.html'
             plugin.save()
             print(f'Updated {html_name} successfully!')
+            k+=1
 
 
 
