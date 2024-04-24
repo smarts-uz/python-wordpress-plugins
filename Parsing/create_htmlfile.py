@@ -47,16 +47,10 @@ def run_y2z_v2(start,end):
             html_file_path = os.path.join(plugin.folder_path, f'{plugin.name}')
             html_name = plugin.name
             print(html_name)
-            # if os.path.exists(f"{src_app}/{plugin.name}.txt"):
-            #     print(f'This html already created: {html_file_path}')
-            # else:
             if not os.path.exists(f"{html_file_path}.html"):
                 return_code = run_2(html_file_path=html_file_path, url=plugin.url)
             else:
                 print(f'This html already created: {html_file_path}')
-            with open(f'{src_app}/{html_name}.txt', 'w',encoding='utf-8') as f:
-                # f.write(html_name)
-                print(f'{html_name} Plugin saved!!!!!!!!')
             plugin = Plugin.objects.get(url=plugin.url)
             plugin.html = f'{html_name}.html'
             plugin.save()
