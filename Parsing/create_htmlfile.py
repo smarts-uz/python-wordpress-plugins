@@ -34,13 +34,11 @@ def run_y2z():
                             print(f'This html already created: {html_file_path}')
                         else:
                             return_code = run_2(html_file_path=html_file_path,url=url)
-                            with open(f'{src_app}/{html_name}.txt', 'w') as f:
-                                f.write(html_name)
-                                print(f'{html_name} Plugin saved!!!!!!!!')
-                                plugin = Plugin.objects.get(url=url)
-                                plugin.html = html_name
-                                plugin.save()
-                                print(f'Updated {html_name} successfully!')
+                            plugin = Plugin.objects.get(url=url)
+                            plugin.html = html_name
+                            plugin.save()
+                            print(f'Updated {html_name} successfully!')
+
 
 def run_y2z_v2(start,end):
     plugins = Plugin.objects.filter(html=None).order_by('pk')
