@@ -56,8 +56,8 @@ def run_y2z_v2(start,end):
                 return_code = run_2(html_file_path=html_file_path, url=plugin.url)
             else:
                 print(f'This html already created: {html_file_path}')
-            with open(f'{src_app}/{html_name}.txt', 'w') as f:
-                f.write(html_name)
+            with open(f'{src_app}/{html_name}.txt', 'w',encoding='utf-8') as f:
+                # f.write(html_name)
                 print(f'{html_name} Plugin saved!!!!!!!!')
             plugin = Plugin.objects.get(url=plugin.url)
             plugin.html = f'{html_name}.html'
