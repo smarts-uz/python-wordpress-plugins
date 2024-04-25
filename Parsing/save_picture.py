@@ -72,9 +72,9 @@ def parse_picture_v2(start,end):
     plugins = Plugin.objects.filter(screenshot=False)
     for plugin in plugins[start:end]:
         if plugin.html !=None:
-            plugin_path = plugin.folder_path
-            html_file_path = os.path.join(plugin.folder_path, plugin.html)
-            screen_path = os.path.join(plugin.folder_path, 'Screens')
+            plugin_path = f"{src}/{plugin.name}"
+            html_file_path = os.path.join(plugin_path, plugin.html)
+            screen_path = os.path.join(plugin_path, 'Screens')
             if not os.path.exists(screen_path):
                 os.makedirs(screen_path)
             func_screens(html_file_path, screen_path, plugin)

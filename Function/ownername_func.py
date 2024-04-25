@@ -28,7 +28,7 @@ def func_ownername(html_file_path,plugin):
         owner_name_1 = owner_name_class.find('span', class_='author vcard').get_text(strip=True)
         if owner_name_1 != '':
             owner_name = f'By {owner_name_1}'
-            owner_name_path = os.path.join(plugin.folder_path, f"{owner_name}.txt")
+            owner_name_path = os.path.join(f'{src}/{plugin.name}', f"{owner_name}.txt")
             with open(owner_name_path, 'w') as f:
                 # f.write(owner_name)
                 print(f'[OS]Owner name: {owner_name} added to folder!!!!')

@@ -8,8 +8,6 @@
 from django.db import models
 
 
-
-
 class DjangoMigrations(models.Model):
     app = models.CharField(max_length=255)
     name = models.CharField(max_length=255)
@@ -23,7 +21,6 @@ class DjangoMigrations(models.Model):
 class Plugin(models.Model):
     slug = models.CharField(max_length=255)
     url = models.CharField(max_length=255)
-    folder_path = models.CharField(max_length=255, blank=True, null=True)
     name = models.CharField(max_length=255, blank=True, null=True)
     zipfile = models.CharField(max_length=255, blank=True, null=True)
     screenshot = models.BooleanField(default=False)

@@ -11,7 +11,7 @@ from dotenv import load_dotenv
 from bs4 import BeautifulSoup
 load_dotenv()
 src = f'{os.getenv('src_path')}/All'
-src_app = f'{os.getenv('src_path')}/App'
+
 
 
 def func_rating(html_file_path,plugin):
@@ -24,7 +24,7 @@ def func_rating(html_file_path,plugin):
         rating_lists = ratings_lists.find_all('li')
         for rating_list in rating_lists[0:1]:
             fives_count = rating_list.find('span', class_='counter-count').get_text(strip=True)
-            fivesstart_txt = os.path.join(plugin.folder_path, f'5 starts - {fives_count}.txt')
+            fivesstart_txt = os.path.join(f'{src}/{plugin.name}', f'5 starts - {fives_count}.txt')
             if not os.path.exists(fivesstart_txt):
                 with open(fivesstart_txt, mode='w', encoding='utf-8') as f:
                     f.write(f'5 starts - {fives_count}')

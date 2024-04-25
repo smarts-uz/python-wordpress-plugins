@@ -25,7 +25,7 @@ def func_elements(html_file_path,pl):
             if plugin('div', class_='tags'):
                 tags = plugin.find('div', class_='tags').find_all('a')
                 for tag in tags:
-                    tag_path = os.path.join(pl.folder_path, f'#{tag.text}.txt')
+                    tag_path = os.path.join(f"{src}/{pl.name}", f'#{tag.text}.txt')
                     if not os.path.isfile(tag_path):
                         with open(tag_path, 'w') as f:
                             # f.write(tag.text)
@@ -40,7 +40,7 @@ def func_elements(html_file_path,pl):
                     for char in unsupchar:
                         plugin_text = plugin_text.replace(char, " ")
                     plugin_text = plugin_text.replace('  ', ' ')
-                    plugin_text_path = os.path.join(pl.folder_path, f'{plugin_text}.txt')
+                    plugin_text_path = os.path.join(f'{src}/{pl.name}', f'{plugin_text}.txt')
                     if not os.path.isfile(plugin_text_path):
                         with open(plugin_text_path, 'w') as f:
                             f.write(plugin_text)

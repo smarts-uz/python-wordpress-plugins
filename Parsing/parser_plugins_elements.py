@@ -81,8 +81,8 @@ def plugins_elements_v2(start,end):
     plugins = Plugin.objects.filter(elements=False)
     for pl in plugins[start:end]:
         if pl.html != None:
-            plugin_path = pl.folder_path
-            html_file_path = os.path.join(pl.folder_path, pl.html)
+            plugin_path = f"{src}/{pl.name}"
+            html_file_path = os.path.join(plugin_path, pl.html)
             func_elements(html_file_path=html_file_path, pl=pl)
             pl.save()
             # with open(html_file_path, 'rb') as f:

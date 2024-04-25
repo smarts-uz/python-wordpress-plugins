@@ -58,29 +58,10 @@ def owner_name_v2(start,end):
     plugins = Plugin.objects.filter(owner_name=None)
     for plugin in plugins[start:end]:
         if plugin.html != None:
-            plugin_path = plugin.folder_path
-            html_file_path = os.path.join(plugin.folder_path, plugin.html)
+            html_file_path = os.path.join(f'{src}/{plugin.name}', plugin.html)
             func_ownername(html_file_path=html_file_path, plugin=plugin)
             plugin.save()
-            # with open(html_file_path, 'rb') as f:
-            #     html_body = f.read()
-            # soup = BeautifulSoup(html_body, 'html.parser')
-            # try:
-            #     owner_name_class = soup.find('span', class_='byline')
-            #     owner_name_1 = owner_name_class.find('span', class_='author vcard').get_text(strip=True)
-            #     if owner_name_1 != '':
-            #         owner_name = f'By {owner_name_1}'
-            #         owner_name_path = os.path.join(plugin_path, f"{owner_name}.txt")
-            #         with open(owner_name_path, 'w') as f:
-            #             f.write(owner_name)
-            #         print(f'Owner name: {owner_name} added to folder!!!!')
-            #         plugin.owner_name = owner_name_1
-            #         plugin.save()
-            #         print(f'Owner name: updated to {owner_name_1}')
-            #
-            #
-            # except:
-            #     pass
+
 
 
 

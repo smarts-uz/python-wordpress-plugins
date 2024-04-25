@@ -41,9 +41,7 @@ def plugin_title(plugin_name):
         print(plugin_folder_name)
         if not os.path.exists(f'{src}/All/{plugin_folder_name}'):
             os.makedirs(f'{src}/All/{plugin_folder_name}')
-            plugin.folder_path = f'{src}/All/{plugin_folder_name}'
             plugin.save()
-            print(f'Created {plugin.folder_path}')
             print(f'Created folder: {src}/All/{plugin_folder_name}')
         else:
             print(f'Folder already exists: {src}/All/{plugin_folder_name}')

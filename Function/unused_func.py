@@ -25,7 +25,7 @@ def func_unused(html_file_path,plugin):
             strip=True)
         if description != None:
             description_path = f'{description.replace("  ", " ")}.txt'
-            plugin_desc_path = os.path.join(plugin.folder_path, description_path)
+            plugin_desc_path = os.path.join(f'{src}/{plugin.name}', description_path)
             if not os.path.isfile(plugin_desc_path):
                 with open(plugin_desc_path, 'w') as f:
                     # f.write(description)

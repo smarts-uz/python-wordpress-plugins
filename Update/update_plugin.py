@@ -21,7 +21,7 @@ from django_orm.db.models import Plugin
 import shutil
 from dotenv import load_dotenv
 load_dotenv()
-src = os.getenv('src_path')
+src = f'{os.getenv('src_path')}/All'
 def plugin_update(plugin_url):
     plugin = Plugin.objects.get(url=plugin_url)
     if plugin_url[-1] != '/':
@@ -30,23 +30,23 @@ def plugin_update(plugin_url):
     slug += '/'
     plugin.slug = slug
     print(f'Slug updated: {slug}')
-    plugin_path = plugin.folder_path
+    plugin_path = os.path.join(src, plugin.name)
     if plugin.html != None:
         shutil.rmtree(plugin_path, ignore_errors=True)
         print(f'Path deleted: {plugin_path}')
         plugin_name = plugin_title(plugin_name=slug)
-        if not os.path.exists(f'{src}/All/{plugin_name}'):
-            os.makedirs(f'{src}/All/{plugin_name}')
+        if not os.path.exists(f'{src}/{plugin_name}'):
+            os.makedirs(f'{src}/{plugin_name}')
         create_url(path=plugin_path, name=slug)
         plugin.url = plugin_url
-        html_file_path = os.path.join(plugin.folder_path, f'{plugin.name}')
+        html_file_path = os.path.join(plugin_path, f'{plugin.name}')
         html_name = plugin.name
         return_code = run_2(html_file_path=html_file_path, url=plugin.url)
-        screen_path = os.path.join(plugin.folder_path, 'Screens')
+        screen_path = os.path.join(f'{src}/{plugin.name}', 'Screens')
         if not os.path.exists(screen_path):
             os.makedirs(screen_path)
         print(plugin.html)
-        html_file_dst = os.path.join(plugin.folder_path, plugin.html)
+        html_file_dst = os.path.join(f'{src}/{plugin.name}', plugin.html)
         func_screens(html_file_dst, screen_path, plugin)
         func_rating(html_file_path=html_file_dst, plugin=plugin)
         func_download(html_file_path=html_file_dst, plugin=plugin)
