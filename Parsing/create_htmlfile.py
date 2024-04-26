@@ -28,14 +28,10 @@ def run_y2z_v2(start,end):
             return_code = run_2(html_file_path=html_file_path, url=plugin.url)
         else:
             print(f'This html already created: {html_file_path}')
-        if return_code == 0:
-            plugin = Plugin.objects.get(url=plugin.url)
-            plugin.html = f'{html_name}.html'
-            plugin.save()
-            print(f'Updated {html_name} successfully!')
-        else:
-            plugin.html = None
-            plugin.save()
+        plugin = Plugin.objects.get(url=plugin.url)
+        plugin.html = f'{html_name}.html'
+        plugin.save()
+        print(f'Updated {html_name} successfully!')
 
 
 

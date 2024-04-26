@@ -7,6 +7,7 @@ these settings as is, and skip to START OF APPLICATION section below """
 # Turn off bytecode generation
 import sys
 
+from Run.execute_run import run_execute
 from Update.update_plugin import plugin_update
 
 sys.dont_write_bytecode = True
@@ -40,6 +41,13 @@ def parser(start:int,end:int):
     plugins_parse(int(start),int(end))
 
 
+@plugin.command(help='This cmd runs gethtml % getdata % getzip')
+@click.option('--start')
+@click.option('--end')
+def execute(start:int,end:int):
+    run_execute(start,end)
+    print('execution finished')
+
 
 @plugin.command(help='Create plugin\'s html file')
 @click.option('--start')
@@ -64,6 +72,7 @@ def getzip(start,end):
 @click.option('--start')
 @click.option('--end')
 def getdata(start,end):
+    print('123')
     try:
         # run_y2z_v2(int(start), int(end))
         parse_picture_v2(int(start), int(end))
