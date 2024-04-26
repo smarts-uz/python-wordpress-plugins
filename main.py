@@ -36,7 +36,7 @@ def plugin():
 @plugin.command(help='Parsing plugins name from https://ps.w.org/')
 @click.option('--start')
 @click.option('--end')
-def parse(start:int,end:int):
+def parser(start:int,end:int):
     plugins_parse(int(start),int(end))
 
 
@@ -46,7 +46,7 @@ def parse(start:int,end:int):
 @plugin.command(help='Create asset file for plugins')
 @click.option('--start')
 @click.option('--end')
-def create_asset(start,end):
+def getdata(start,end):
     try:
         run_y2z_v2(int(start), int(end))
         parse_picture_v2(int(start), int(end))
