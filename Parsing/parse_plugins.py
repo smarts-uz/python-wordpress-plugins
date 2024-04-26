@@ -34,7 +34,7 @@ def plugins_parse(start:int,end:int):
             slug = Plugin.objects.get(slug=plugin_name_old)
             print(f'Plugin {plugin_name_old} already exists')
         except Plugin.DoesNotExist:
-            slug = Plugin.objects.create(slug=plugin_name_old,screenshot=False,elements=False)
+            slug = Plugin.objects.create(slug=plugin_name_old,screenshot=False,elements=False,url=f"https://wordpress.org/plugins/{plugin_name_old}")
             print('Plugin\'s slug has been created',slug.slug)
         if slug.url == None or slug.name==None:
             plugin_name = plugin_title(plugin_name=plugin_name_old)
@@ -42,7 +42,8 @@ def plugins_parse(start:int,end:int):
                 plugin_folder_name = f'{src}/All/{plugin_name}'
                 create_url(path=plugin_folder_name, name=plugin_name_old)
                 slug.name = plugin_name
-                slug.url = f"https://wordpress.org/plugins/{plugin_name_old}"
+                # slug.url = f"https://wordpress.org/plugins/{plugin_name_old}"
+                slug.save()
             else:
                 pass
             slug.save()
