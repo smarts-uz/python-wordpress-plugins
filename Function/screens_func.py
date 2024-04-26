@@ -27,12 +27,12 @@ def func_screens(html_file_path,screen_path,plugin):
         for picture in pictures:
             picture_name = picture.get_text(strip=True).replace('.', '')
             src_picture = picture.find('a')['href']
-
+            print(src_picture)
             if not os.path.isfile(f"{screen_path}/{picture_name}.png"):
                 with open(f'{screen_path}/{picture_name}.png', 'wb') as f:
                     res = hyperlink.urlopen(src_picture, timeout=60)
                     print(src_picture)
-                    time.sleep(5)
+                    # time.sleep(5)
                     f.write(res.read())
                     print(f'Picture saved successfully {picture_name}')
 

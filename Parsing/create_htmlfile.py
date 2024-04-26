@@ -19,20 +19,25 @@ src = f'{os.getenv('src_path')}/All'
 
 
 def run_y2z_v2(start,end):
-    plugins = Plugin.objects.filter(html=None).order_by('pk')
+    plugins = Plugin.objects.filter(html=None,name__isnull=False).order_by('pk')
     for plugin in plugins[start:end]:
-        if plugin.name != None:
-            html_file_path = os.path.join(f'{src}/{plugin.name}', f'{plugin.name}')
-            html_name = plugin.name
-            print(html_name)
-            if not os.path.exists(f"{html_file_path}.html"):
-                return_code = run_2(html_file_path=html_file_path, url=plugin.url)
-            else:
-                print(f'This html already created: {html_file_path}')
+        html_file_path = os.path.join(f'{src}/{plugin.name}', f'{plugin.name}')
+        html_name = plugin.name
+        print(html_name)
+        if not os.path.exists(f"{html_file_path}.html"):
+            return_code = run_2(html_file_path=html_file_path, url=plugin.url)
+        else:
+            print(f'This html already created: {html_file_path}')
+        if return_code == 0:
             plugin = Plugin.objects.get(url=plugin.url)
             plugin.html = f'{html_name}.html'
             plugin.save()
             print(f'Updated {html_name} successfully!')
+        else:
+            plugin.html = None
+            plugin.save()
+
+
 
 
 

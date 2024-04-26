@@ -20,7 +20,7 @@ class DjangoMigrations(models.Model):
 
 class Plugin(models.Model):
     slug = models.CharField(max_length=255)
-    url = models.CharField(max_length=255)
+    url = models.CharField(max_length=255,blank=True,null=True,default=None)
     name = models.CharField(max_length=255, blank=True, null=True)
     zipfile = models.CharField(max_length=255, blank=True, null=True)
     screenshot = models.BooleanField(default=False)
