@@ -72,7 +72,6 @@ def getzip(start,end):
 @click.option('--start')
 @click.option('--end')
 def getdata(start,end):
-    print('123')
     try:
         # run_y2z_v2(int(start), int(end))
         parse_picture_v2(int(start), int(end))

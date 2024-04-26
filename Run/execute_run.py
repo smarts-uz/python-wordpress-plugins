@@ -7,4 +7,4 @@ def run_execute(start,end):
     html_code = gethtml_run(start,end)
     if html_code ==0:
         getdata_run(start,end)
-        # getzip_run(start,end)
+        getzip_run(start,end)
