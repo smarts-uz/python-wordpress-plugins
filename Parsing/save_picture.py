@@ -70,23 +70,23 @@ def parse_picture():
 
 
 def parse_picture_v2(start,end):
-    plugins = Plugin.objects.filter(screenshot=False)
+    plugins = Plugin.objects.filter(screenshot=False,html__isnull=False).order_by('pk')
     for plugin in plugins[start:end]:
         try:
-            if plugin.html != None:
-                print(plugin.pk, plugin.slug)
-                plugin_path = f"{src}/{plugin.name}"
-                html_file_path = os.path.join(plugin_path, plugin.html)
-                if not os.path.isfile(html_file_path):
-                    # run_2(html_file_path,plugin.url)
-                    continue
-                screen_path = os.path.join(plugin_path, 'Screens')
-                if not os.path.exists(screen_path):
-                    a = os.makedirs(screen_path)
-                    print(a)
-                    print('created folder:',{screen_path})
-                print(os.path.exists(screen_path))
-                func_screens(html_file_path, screen_path, plugin)
+            print(plugin.pk, plugin.slug)
+            plugin_path = f"{src}/{plugin.name}"
+            html_file_path = os.path.join(plugin_path, plugin.html)
+            if not os.path.isfile(html_file_path):
+                # run_2(html_file_path,plugin.url)
+                continue
+            screen_path = os.path.join(plugin_path, 'Screens')
+            if not os.path.exists(screen_path):
+                a = os.makedirs(screen_path)
+                print(a)
+                print('created folder:', {screen_path})
+            print(os.path.exists(screen_path))
+            func_screens(html_file_path, screen_path, plugin)
+
         except Exception as e:
             print(e)
             # with open(html_file_path, 'rb') as f:

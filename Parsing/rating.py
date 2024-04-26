@@ -19,12 +19,12 @@ import requests
 
 
 def get_rating(start,end):
-    plugins = Plugin.objects.filter(fivestars=None)
+    plugins = Plugin.objects.filter(fivestars=None,html__isnull=False).order_by('pk')
     for plugin in plugins[start:end]:
-        if plugin.html != None:
-            plugin_path = f'{src}/{plugin.name}'
-            html_file_path = os.path.join(f'{src}/{plugin.name}', plugin.html)
-            func_rating(html_file_path, plugin)
+        plugin_path = f'{src}/{plugin.name}'
+        html_file_path = os.path.join(f'{src}/{plugin.name}', plugin.html)
+        func_rating(html_file_path, plugin)
+
 
 
 

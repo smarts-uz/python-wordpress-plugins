@@ -54,12 +54,13 @@ def plugin_desc():
 
 
 def unused_plugin(start,end):
-    plugins = Plugin.objects.filter(unused=False)
+    plugins = Plugin.objects.filter(unused=False,html__isnull=False).order_by('pk')
     for plugin in plugins[start:end]:
-        if plugin.html != None:
-            html_file_path = os.path.join(f'{src}/{plugin.name}', plugin.html)
-            func_unused(html_file_path, plugin)
-            plugin.save()
+        html_file_path = os.path.join(f'{src}/{plugin.name}', plugin.html)
+        func_unused(html_file_path, plugin)
+        plugin.save()
+
+
 
 
 
