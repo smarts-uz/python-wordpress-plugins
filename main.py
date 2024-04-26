@@ -41,17 +41,34 @@ def parser(start:int,end:int):
 
 
 
+@plugin.command(help='Create plugin\'s html file')
+@click.option('--start')
+@click.option('--end')
+def gethtml(start,end):
+    try:
+        run_y2z_v2(int(start), int(end))
+    except Exception as e:
+        print(e)
 
+
+@plugin.command(help='Downloads plugins zip file')
+@click.option('--start')
+@click.option('--end')
+def getzip(start,end):
+    try:
+        download_v2(int(start), int(end))
+    except Exception as e:
+        print(e)
 
 @plugin.command(help='Create asset file for plugins')
 @click.option('--start')
 @click.option('--end')
 def getdata(start,end):
     try:
-        run_y2z_v2(int(start), int(end))
+        # run_y2z_v2(int(start), int(end))
         parse_picture_v2(int(start), int(end))
         get_rating(int(start), int(end))
-        download_v2(int(start), int(end))
+        # download_v2(int(start), int(end))
         plugins_elements_v2(int(start), int(end))
         owner_name_v2(int(start), int(end))
         unused_plugin(int(start), int(end))
