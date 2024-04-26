@@ -82,40 +82,10 @@ def parse_picture_v2(start,end):
             screen_path = os.path.join(plugin_path, 'Screens')
             if not os.path.exists(screen_path):
                 a = os.makedirs(screen_path)
-                print(a)
-                print('created folder:', {screen_path})
-            print(os.path.exists(screen_path))
+                print('created folder:', screen_path)
             func_screens(html_file_path, screen_path, plugin)
 
         except Exception as e:
             print(e)
-            # with open(html_file_path, 'rb') as f:
-            #     html_body = f.read()
-            # picture_soup = BeautifulSoup(html_body, 'html.parser')
-            # try:
-            #     screenshots = picture_soup.find('div', class_='plugin-screenshots')
-            #     picture_list = screenshots.find('ul')
-            #     pictures = picture_list.find_all('li')
-            #     for picture in pictures:
-            #         picture_name = picture.get_text(strip=True).replace('.', '')
-            #         src_picture = picture.find('a')['href']
-            #
-            #         if not os.path.isfile(f"{screen_path}/{picture_name}.png"):
-            #             with open(f'{screen_path}/{picture_name}.png', 'wb') as f:
-            #                 res = hyperlink.urlopen(src_picture, timeout=60)
-            #                 print(src_picture)
-            #                 f.write(res.read())
-            #                 print(f'Picture saved successfully {picture_name}')
-            #
-            #         else:
-            #             print(f'Picture already exists {picture_name}')
-            #
-            # except:
-            #     with open(f'{screen_path}/NoPhoto.txt', "w") as f:
-            #         f.write("Photo not found")
-            #     print('Photo not found')
-            # plugin.screenshot = True
-            # plugin.save()
-            # print(f'Picture updated successfully {plugin.screenshot}')
 
 
