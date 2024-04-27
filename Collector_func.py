@@ -40,5 +40,3 @@ def func_collector(num):
 
 
 
-
-# func_collector(25)
