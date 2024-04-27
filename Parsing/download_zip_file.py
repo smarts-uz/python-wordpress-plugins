@@ -51,12 +51,14 @@ def download():
 
 
 def download_v2(start,end):
-    plugins = Plugin.objects.filter(zipfile=None,html__isnull=False).order_by('pk')
+    plugins = Plugin.objects.all().order_by('pk')
     for plugin in plugins[start:end]:
-        plugin_path = f'{src}/{plugin.name}'
-        print(plugin_path)
-        html_file_path = os.path.join(plugin_path, plugin.html)
-        func_download(html_file_path, plugin)
+        if plugin.zip == None and plugin.html != None:
+            plugin_path = f'{src}/{plugin.name}'
+            print(plugin_path)
+            html_file_path = os.path.join(plugin_path, plugin.html)
+            func_download(html_file_path, plugin)
+
 
 
 

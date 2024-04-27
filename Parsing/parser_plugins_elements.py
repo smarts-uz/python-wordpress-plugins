@@ -78,12 +78,14 @@ def plugins_elements():
 
 
 def plugins_elements_v2(start,end):
-    plugins = Plugin.objects.filter(elements=False,html__isnull=False).order_by('pk')
+    plugins = Plugin.objects.all().order_by('pk')
     for pl in plugins[start:end]:
-        plugin_path = f"{src}/{pl.name}"
-        html_file_path = os.path.join(plugin_path, pl.html)
-        func_elements(html_file_path=html_file_path, pl=pl)
-        pl.save()
+        if pl.elements == False and pl.html != None:
+            plugin_path = f"{src}/{pl.name}"
+            html_file_path = os.path.join(plugin_path, pl.html)
+            func_elements(html_file_path=html_file_path, pl=pl)
+            pl.save()
+
 
             # with open(html_file_path, 'rb') as f:
             #     html_body = f.read()
