@@ -14,7 +14,7 @@ import time
 import sys
 import subprocess
 def execute_run_subprocess(start,end):
-    pros = subprocess.Popen([f'{sys.executable}', 'main.py', 'execute', f"--start={start}", f"--end={end}"], )
+    pros = subprocess.Popen([f'{sys.executable}', 'main.py', 'execute', f"--start={start}", f"--end={end}"], shell=True)
     # code = pros.wait()
     print(f'process starting: start={start}, end={end}')
 
