@@ -54,7 +54,7 @@ def func_screens(html_file_path,screen_path,plugin):
                 print(f'Picture already exists {picture_name}')
 
     except Exception as e :
-        print(e)
+        # print(e)
         with open(f'{screen_path}/NoPhoto.txt', "w") as f:
             f.write("Photo not found")
         print('Photo not found')
