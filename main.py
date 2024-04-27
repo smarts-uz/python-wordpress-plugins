@@ -7,8 +7,7 @@ these settings as is, and skip to START OF APPLICATION section below """
 # Turn off bytecode generation
 import sys
 
-from Run.execute_run import run_execute
-from Update.update_plugin import plugin_update
+from Collector_func import func_collector
 
 sys.dont_write_bytecode = True
 # Django specific settings
@@ -16,6 +15,10 @@ import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_orm.settings')
 import django
 django.setup()
+
+from Run.execute_run import run_execute
+from Update.update_plugin import plugin_update
+
 from django_orm.db.models import Plugin
 from Parsing.parse_plugins import plugins_parse
 from Parsing.create_htmlfile import run_y2z_v2
@@ -40,6 +43,12 @@ def plugin():
 def parser(start:int,end:int):
     plugins_parse(int(start),int(end))
 
+@plugin.command(help='Write flow count to run execute')
+@click.option('--count')
+def collector(count:int):
+    func_collector(num=int(count))
+    print('execution finished')
+
 
 @plugin.command(help='This cmd runs gethtml % getdata % getzip')
 @click.option('--start')
@@ -47,6 +56,7 @@ def parser(start:int,end:int):
 def execute(start:int,end:int):
     run_execute(start,end)
     print('execution finished')
+
 
 
 @plugin.command(help='Create plugin\'s html file')
