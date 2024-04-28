@@ -8,6 +8,7 @@ these settings as is, and skip to START OF APPLICATION section below """
 import sys
 
 from Collector_func import func_collector
+from Feedback.tg_bot import send_report
 
 sys.dont_write_bytecode = True
 # Django specific settings
@@ -68,6 +69,9 @@ def gethtml(start,end):
     except Exception as e:
         print(e)
 
+@plugin.command(help='Info about db')
+def remain():
+    send_report()
 
 @plugin.command(help='Downloads plugins zip file')
 @click.option('--start')
