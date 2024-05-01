@@ -41,8 +41,6 @@ def send_report():
         
 html: none: {html_none} | notnone: {html_notnone}
 
-zip: none: {zip_none} | notnone: {zip_notnone}
-
 screenshot: none: {screenshot_none} | notnone: {screenshot_notnone}
 
 elements: none: {elements_none} | notnone: {elements_notnone}
