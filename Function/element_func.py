@@ -50,4 +50,5 @@ def func_elements(html_file_path,pl):
         pl.elements = True
         pl.save()
     except:
-        pass
+        pl.elements = True
+        pl.save()

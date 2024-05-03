@@ -34,7 +34,6 @@ def func_collector(num):
         else:
             print(f'{i}: start:{start}  end:{end}')
             execute_run_subprocess(start,end)
-            time.sleep(1)
 
 
 

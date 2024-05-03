@@ -29,7 +29,12 @@ def func_rating(html_file_path,plugin):
                 with open(fivesstart_txt, mode='w', encoding='utf-8') as f:
                     f.write(f'5 starts - {fives_count}')
                 print(f'Created txt file {fivesstart_txt}')
+            else:
+                print('txt file already created')
             plugin.fivestars = int(fives_count)
             plugin.save()
+            print('updated rating db')
     except Exception as e:
-        pass
+        plugin.fivestars = 0
+        plugin.save()
+        print('updated rating db')

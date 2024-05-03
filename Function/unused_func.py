@@ -35,4 +35,6 @@ def func_unused(html_file_path,plugin):
         plugin.unused = True
         plugin.save()
     except:
+        plugin.unused = True
+        plugin.save()
         print('This plugin is active!!')

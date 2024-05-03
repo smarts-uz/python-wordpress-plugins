@@ -4,7 +4,7 @@ from Run.run_getzip import getzip_run
 
 
 def run_execute(start,end):
-    html_code = gethtml_run(start,end)
-    if html_code ==0:
-        getdata_run(start,end)
-        getzip_run(start,end)
+    print('running process')
+    # html_code = gethtml_run(start,end)
+    getdata_run(start,end)
+

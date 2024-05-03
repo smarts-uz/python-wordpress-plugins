@@ -19,9 +19,6 @@ def send_report():
         html = html_count()
         html_none = html[0]
         html_notnone = html[1]
-        zip = zip_count()
-        zip_none = zip[0]
-        zip_notnone = zip[1]
         screenshot = screenshot_count()
         screenshot_none = screenshot[0]
         screenshot_notnone = screenshot[1]
@@ -39,17 +36,17 @@ def send_report():
         unused_notnone = unused[1]
         text = f"""All: {all_count}
         
-html: none: {html_none} | notnone: {html_notnone}
+html: process: {html_none} | done: {html_notnone}
 
-screenshot: none: {screenshot_none} | notnone: {screenshot_notnone}
+screenshot: process: {screenshot_none} | done: {screenshot_notnone}
 
-elements: none: {elements_none} | notnone: {elements_notnone}
+elements: process: {elements_none} | done: {elements_notnone}
 
-ownername: none: {ownername_none} | notnone: {ownername_notnone}
+ownername: process: {ownername_none} | done: {ownername_notnone}
 
-fivestart: none: {fivestars_none} | none: {fivestars_notnone}
+fivestart: process: {fivestars_none} | done: {fivestars_notnone}
 
-unused: none: {unused_none} | none: {unused_notnone}
+unused: process: {unused_none} | done: {unused_notnone}
         """
         try:
             bot.send_message(chat_id=chat_id,text=text)

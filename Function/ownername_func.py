@@ -38,4 +38,6 @@ def func_ownername(html_file_path,plugin):
 
 
     except:
-        pass
+        plugin.owner_name = "not found"
+        plugin.save()
+        print(f'[DB] Owner name: not found')

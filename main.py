@@ -9,6 +9,7 @@ import sys
 
 from Collector_func import func_collector
 from Feedback.tg_bot import send_report
+from Run.run_getdata import getscreen_run, getrating_run, getelements_run, getowner_run, getunused_run
 
 sys.dont_write_bytecode = True
 # Django specific settings
@@ -87,17 +88,44 @@ def getzip(start,end):
 @click.option('--end')
 def getdata(start,end):
     try:
-        # run_y2z_v2(int(start), int(end))
-        parse_picture_v2(int(start), int(end))
-        get_rating(int(start), int(end))
-        # download_v2(int(start), int(end))
-        plugins_elements_v2(int(start), int(end))
-        owner_name_v2(int(start), int(end))
-        unused_plugin(int(start), int(end))
+        print('getdata.....')
+        getscreen_run(int(start), int(end))
+        getrating_run(int(start), int(end))
+        getelements_run(int(start), int(end))
+        getowner_run(int(start), int(end))
+        getunused_run(int(start), int(end))
     except Exception as e:
         print(e)
 
+@plugin.command(help='Create photo file for plugins')
+@click.option('--start')
+@click.option('--end')
+def getscreen(start,end):
+    parse_picture_v2(int(start), int(end))
 
+@plugin.command(help='Create rating file for plugins')
+@click.option('--start')
+@click.option('--end')
+def getrating(start,end):
+    get_rating(int(start), int(end))
+
+@plugin.command(help='Create elements file for plugins')
+@click.option('--start')
+@click.option('--end')
+def getelements(start,end):
+    plugins_elements_v2(int(start), int(end))
+
+@plugin.command(help='Create owner_name file for plugins')
+@click.option('--start')
+@click.option('--end')
+def getowner_name(start,end):
+    owner_name_v2(int(start), int(end))
+
+@plugin.command(help='Create description file for plugins')
+@click.option('--start')
+@click.option('--end')
+def getunused(start,end):
+    unused_plugin(int(start), int(end))
 
 @plugin.command(help='Delete or update plugin')
 @click.argument('plugin_url')

@@ -57,10 +57,21 @@ def owner_name():
 def owner_name_v2(start,end):
     plugins = Plugin.objects.all().order_by('pk')
     for plugin in plugins[start:end]:
-        if plugin.owner_name == None and plugin.html != None:
-            html_file_path = os.path.join(f'{src}/{plugin.name}', plugin.html)
-            func_ownername(html_file_path=html_file_path, plugin=plugin)
-            plugin.save()
+        try:
+            if plugin.owner_name == None and plugin.html != None:
+
+                # html_file_path = os.path.join(f'{src}/{plugin.name}', plugin.html)
+                plugin_path = f"{src}/{plugin.name}"
+                plugin_dirs = os.listdir(plugin_path)
+                for plugin_dir in plugin_dirs:
+                    if plugin_dir.endswith('.html'):
+                        # html_file_path = os.path.join(plugin_path, plugin.html)
+                        html_file_path = os.path.join(plugin_path, plugin_dir)
+                        print('owner_name', html_file_path)
+                        func_ownername(html_file_path=html_file_path, plugin=plugin)
+                plugin.save()
+        except Exception as e:
+            print(e)
 
 
 

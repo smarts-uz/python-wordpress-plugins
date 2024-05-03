@@ -1,4 +1,5 @@
 import sys
+import time
 
 from Function.screens_func import func_screens
 from Parsing.run_y2z_cmd import run_2
@@ -72,19 +73,23 @@ def parse_picture():
 def parse_picture_v2(start,end):
     plugins = Plugin.objects.all().order_by('pk')
     for plugin in plugins[start:end]:
-        if plugin.screenshot ==False and plugin.html !=None:
+        if plugin.screenshot == False and plugin.html !=None:
             try:
                 print(plugin.pk, plugin.slug)
                 plugin_path = f"{src}/{plugin.name}"
-                html_file_path = os.path.join(plugin_path, plugin.html)
-                if not os.path.isfile(html_file_path):
-                    # run_2(html_file_path,plugin.url)
-                    continue
-                screen_path = os.path.join(plugin_path, 'Screens')
-                if not os.path.exists(screen_path):
-                    a = os.makedirs(screen_path)
-                    print('created folder:', screen_path)
-                func_screens(html_file_path, screen_path, plugin)
+                plugin_dirs = os.listdir(plugin_path)
+                for plugin_dir in plugin_dirs:
+                    if plugin_dir.endswith('.html'):
+                        # html_file_path = os.path.join(plugin_path, plugin.html)
+                        html_file_path = os.path.join(plugin_path,plugin_dir)
+                        print('Screens', html_file_path)
+                        screen_path = os.path.join(plugin_path, 'Screens')
+                        if not os.path.exists(screen_path):
+                            a = os.makedirs(screen_path)
+                            print('created folder:', screen_path)
+                        func_screens(html_file_path, screen_path, plugin)
+
+
 
             except Exception as e:
                 print(e)
