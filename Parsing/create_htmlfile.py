@@ -19,15 +19,25 @@ src = f'{os.getenv('src_path')}/All'
 
 
 def run_y2z_v2(start,end):
+    k = 0
     plugins = Plugin.objects.all().order_by('pk')
     for id,plugin in enumerate(plugins[start:end]):
-        if plugin.html != None and plugin.name !=None:
+        if plugin.name ==None:
             html_file_path = os.path.join(f'{src}/{plugin.name}', f'{plugin.html}')
             print(plugin.pk,html_file_path)
+            text = f'{plugin.pk} {plugin.html}\r\n'
             if not os.path.exists(html_file_path):
-                plugin.delete()
-                print(f'{id} - Deleted {plugin.name} from db')
-                plugin.save()
+                k+=1
+                Plugin.objects.get(pk=plugin.pk).delete()
+                print(f'{id} - Deleted {plugin.slug} from db')
+
+                with open('pl.txt',mode='a',encoding='utf-8') as f:
+                    f.write(text)
+            print('kk',k)
+    t = f'all count: {k}'
+    with open('delete.txt', mode='w', encoding='utf-8') as f:
+        f.write(t)
+    print(f'{k} delete objects')
 
         # if plugin.html == None and plugin.name != None:
         #     print(f'{plugin.pk}: {plugin.name}')
@@ -48,7 +58,7 @@ def run_y2z_v2(start,end):
 
 
 
-run_y2z_v2(0,100)
+# run_y2z_v2(0,100)
 
 
 

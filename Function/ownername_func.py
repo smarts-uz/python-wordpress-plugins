@@ -1,4 +1,6 @@
 import sys
+import time
+
 sys.dont_write_bytecode = True
 # Django specific settings
 import os
@@ -35,9 +37,15 @@ def func_ownername(html_file_path,plugin):
             plugin.owner_name = owner_name_1
             plugin.save()
             print(f'[DB] Owner name: updated to {owner_name_1}')
+        else:
+            plugin.owner_name = 'notfound'
+            plugin.save()
+            print(f'[DB] Owner name: not found')
 
 
-    except:
+
+    except Exception as e:
+        print(e)
         plugin.owner_name = "not found"
         plugin.save()
         print(f'[DB] Owner name: not found')

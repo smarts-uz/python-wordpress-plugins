@@ -27,14 +27,13 @@ def get_rating(start,end):
                 # html_file_path = os.path.join(f'{src}/{plugin.name}', plugin.html)
                 plugin_dirs = os.listdir(plugin_path)
                 for plugin_dir in plugin_dirs:
-                    if plugin_dir.endswith('.html'):
+                    if plugin_dir.lower().endswith('.html'):
                         # html_file_path = os.path.join(plugin_path, plugin.html)
                         html_file_path = os.path.join(plugin_path, plugin_dir)
                         print('get_rating', html_file_path)
                         func_rating(html_file_path, plugin)
         except Exception as e:
             print(e)
-
 
 
 

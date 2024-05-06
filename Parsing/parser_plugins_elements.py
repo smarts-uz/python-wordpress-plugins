@@ -85,7 +85,7 @@ def plugins_elements_v2(start,end):
             # html_file_path = os.path.join(plugin_path, pl.html)
             plugin_dirs = os.listdir(plugin_path)
             for plugin_dir in plugin_dirs:
-                if plugin_dir.endswith('.html'):
+                if plugin_dir.lower().endswith('.html'):
                     # html_file_path = os.path.join(plugin_path, plugin.html)
                     html_file_path = os.path.join(plugin_path, plugin_dir)
                     print('plugins_elements', html_file_path)
