@@ -21,7 +21,7 @@ from django_orm.db.models import Plugin
 import shutil
 from dotenv import load_dotenv
 load_dotenv()
-src = f'{os.getenv('src_path')}/All'
+src = f'{os.getenv("src_path")}/All'
 def plugin_update(plugin_url):
     plugin = Plugin.objects.get(url=plugin_url)
     if plugin_url[-1] != '/':

@@ -14,7 +14,7 @@ import re
 import time
 from dotenv import load_dotenv
 load_dotenv()
-src = f'{os.getenv('src_path')}/All'
+src = f'{os.getenv("src_path")}/All'
 
 
 
