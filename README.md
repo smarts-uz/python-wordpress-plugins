@@ -1,4 +1,4 @@
-# Sports Parser
+# WordPress Parser
 
 ## Quick Start
 
