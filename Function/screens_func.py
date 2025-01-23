@@ -17,8 +17,8 @@ from PIL import Image
 import base64
 from io import BytesIO
 load_dotenv()
-src = f'{os.getenv('src_path')}/All'
-src_app = f'{os.getenv('src_path')}/App'
+src = f'{os.getenv("src_path")}/All'
+src_app = f'{os.getenv("src_path")}/App'
 def func_screens(html_file_path,screen_path,plugin):
     with open(html_file_path, 'rb') as f:
         html_body = f.read()

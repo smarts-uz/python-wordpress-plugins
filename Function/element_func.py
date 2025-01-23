@@ -13,7 +13,7 @@ import re
 import requests
 import urllib.request as hyperlink
 load_dotenv()
-src = f'{os.getenv('src_path')}/All'
+src = f'{os.getenv("src_path")}/All'
 
 def func_elements(html_file_path,pl):
     with open(html_file_path, 'rb') as f:

@@ -13,7 +13,7 @@ from django_orm.db.models import Plugin
 from dotenv import load_dotenv
 from bs4 import BeautifulSoup
 load_dotenv()
-src = f'{os.getenv('src_path')}/All'
+src = f'{os.getenv("src_path")}/All'
 
 import requests
 

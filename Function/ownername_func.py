@@ -18,7 +18,7 @@ import urllib.request as hyperlink
 from Function.check_txt_exists import check_exists
 
 load_dotenv()
-src = f'{os.getenv('src_path')}/All'
+src = f'{os.getenv("src_path")}/All'
 
 
 def func_ownername(html_file_path,plugin):

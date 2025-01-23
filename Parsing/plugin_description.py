@@ -16,7 +16,7 @@ import re
 import requests
 import urllib.request as hyperlink
 load_dotenv()
-src = f'{os.getenv('src_path')}/All'
+src = f'{os.getenv("src_path")}/All'
 
 
 def plugin_desc():

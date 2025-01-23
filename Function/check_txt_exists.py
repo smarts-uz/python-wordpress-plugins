@@ -1,4 +1,3 @@
-
 import os
 def check_exists(chars,path):
     for root, dirs, files in os.walk(path):
@@ -7,5 +6,3 @@ def check_exists(chars,path):
                 return True
             else:
                 pass
-
-

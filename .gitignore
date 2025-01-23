@@ -3,3 +3,4 @@ All
 App
 venv
 test.py
+.env

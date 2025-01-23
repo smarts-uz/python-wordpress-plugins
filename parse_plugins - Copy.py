@@ -27,6 +27,4 @@ def plugins_parse():
         else:
             pass
 
-
-
 plugins_parse()

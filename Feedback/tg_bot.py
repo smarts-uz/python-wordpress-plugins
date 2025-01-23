@@ -60,10 +60,3 @@ unused: process: {unused_none} | done: {unused_notnone}
             print(i)
             time.sleep(1)
         print("Feedback succesfully sent")
-
-
-
-
-
-
-
