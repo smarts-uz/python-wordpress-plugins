@@ -4,3 +4,4 @@ App
 venv
 test.py
 wp_plugns/.env
+.idea
