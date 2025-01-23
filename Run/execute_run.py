@@ -5,6 +5,6 @@ from Run.run_getzip import getzip_run
 
 def run_execute(start,end):
     print('running process')
-    # html_code = gethtml_run(start,end)
+    html_code = gethtml_run(start,end)
     getdata_run(start,end)
 
