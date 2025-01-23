@@ -3,4 +3,5 @@ All
 App
 venv
 test.py
-.env
+wp_plugns/.env
+.idea
