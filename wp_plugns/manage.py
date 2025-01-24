@@ -24,5 +24,6 @@ def main():
     # s=Plugin.objects.all()
     # print(s)
 
+
 if __name__ == '__main__':
     main()
