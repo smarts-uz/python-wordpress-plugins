@@ -3,6 +3,7 @@
 import os
 import sys
 from dotenv import load_dotenv
+from plugn_app.models import Plugin
 
 
 def main():
@@ -18,9 +19,10 @@ def main():
             "forget to activate a virtual environment?"
         ) from exc
     execute_from_command_line(sys.argv)
-    db=os.getenv('DJANGO_DATABASE')
+    db=os.getenv('DATABASE_NAME')
     print(db)
-
+    # s=Plugin.objects.all()
+    # print(s)
 
 if __name__ == '__main__':
     main()
