@@ -3,7 +3,7 @@
 import os
 import sys
 from dotenv import load_dotenv
-from plugn_app.models import Plugin
+# from plugn_app.models import Plugin
 
 
 def main():
