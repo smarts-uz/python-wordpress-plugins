@@ -5,6 +5,7 @@ venv
 test.py
 wp_plugns/.env
 .idea
+
 monolith.exe
 
 .env
