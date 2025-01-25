@@ -34,3 +34,21 @@ class Plugin(models.Model):
     class Meta:
         managed = False
         db_table = 'plugin'
+
+class WooCommercePlugin(models.Model):
+    id = models.AutoField(primary_key=True)  # Plaginlar uchun unique ID
+    slug = models.CharField(max_length=255, unique=True)  # Plaginning slug (unikal nomi)
+    url = models.URLField(max_length=2000, blank=True)  # Plaginning URL manzili
+    name = models.CharField(max_length=255)  # Plaginning nomi
+    price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)  # Plaginning narxi
+    zipfile = models.FileField(upload_to='woocommerce/plugins/zipfiles/', blank=True, null=True)  # ZIP fayli (agar mavjud bo'lsa)
+    screenshot = models.URLField(blank=True, null=True)  # Plaginning skrinshoti
+    elements = models.JSONField(blank=True, null=True)  # Plaginning HTML elementlari (JSON formatda)
+    html = models.TextField(blank=True, null=True)  # Plaginning HTML kodingi
+    owner_name = models.CharField(max_length=255, blank=True, null=True)  # Plaginning muallifi (agar mavjud bo'lsa)
+    unused = models.BooleanField(default=False)  # Plagin ishlatilmayotganligini ko'rsatish
+    fivestars = models.DecimalField(max_digits=2, decimal_places=1, blank=True, null=True)  # Plaginning 5 yulduzli reytingi
+    last_updated = models.DateTimeField(auto_now=True)  # Plaginning oxirgi yangilanishi vaqti
+
+    def __str__(self):
+        return self.name

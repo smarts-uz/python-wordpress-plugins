@@ -1,1 +1,0 @@
-# plugin_folder_name = f'{src}/All/{plugin_name}'
