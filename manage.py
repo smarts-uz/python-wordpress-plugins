@@ -26,17 +26,3 @@ if __name__ == "__main__":
     # .env faylidan 'DATABASE_NAME' ni olish
     db_name = os.getenv('DATABASE_NAME')
     print(db_name)
-
-
-    # Barcha Plugin ob'ektlarini olish
-    plugins = Plugin.objects.all()
-
-
-
-    # Har bir Plugin ob'ekti uchun `slug` va `name` maydonlaridagi '/' belgisini olib tashlash
-    for plugin in plugins:
-        plugin.slug = plugin.slug.replace('/', '')
-        # plugin.name = plugin.name.replace('/', '') if plugin.name else None  # Agar name bo'lsa, o'zgartiradi
-        plugin.save()
-
-    print("Barcha slug va name maydonlaridagi '/' belgisi olib tashlandi.")
