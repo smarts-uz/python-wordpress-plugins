@@ -1,9 +1,9 @@
+from django.utils import timezone
 import time
 import re
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
@@ -11,100 +11,132 @@ from webdriver_manager.chrome import ChromeDriverManager
 import os
 import django
 
-# Set up Django settings for the scraper
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'woocommerce.settings')  # Sozlamalaringizni to'g'ri o'rnating
+# Django sozlamalarini yuklash
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'woocommerce.settings')
 django.setup()
-from products.models import Product  # Django modelini import qilish
-# Set up Chrome options
+
+from products.models import Product
+
+# Chrome options sozlamalari
 options = webdriver.ChromeOptions()
-# options.add_argument('--headless')  # Uncomment this line if you want to run in headless mode
+# options.add_argument('--headless')  # Xoxlasangiz, headless rejimni yoqing
 
-# Set up ChromeDriver service
+# Chrome driverni ishga tushirish
 service = Service(ChromeDriverManager().install())
-
-# Initialize the Chrome driver with the correct service and options
 driver = webdriver.Chrome(service=service, options=options)
 
-# URL of the first page to scrape
+# URL manzili
 url = "https://woocommerce.com/product-category/woocommerce-extensions/"
+pagination='?categoryIds=1021&collections=product&page='
+page_count=1
 
-driver.get(url)
-
-# Explicit wait setup
+# Kutish sozlamalari
 wait = WebDriverWait(driver, 10)
 
-# Loop through pages (assuming next page link exists)
+
+# Narxni faqat $99 shaklida olish uchun funksiya
+def clean_price(price_text):
+    # Faqat $ belgisi bilan boshlangan raqamlarni olish
+    match = re.search(r'\$\d+', price_text)
+    return match.group() if match else 'Price Not Listed'
+
+
+# Sahifalarda yurish uchun loop
 while True:
     try:
-        # Find all the product cards on the current page
+        print(f"\n--- Sahifa {page_count} boshlanmoqda... ---")
+        # Update the URL for the current page
+        base_url = url + pagination + str(page_count)
+        driver.get(base_url)
+
+        # Sahifadagi barcha kartalarni yuklash
         product_cards = wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME, 'wccom-comp-card-product')))
 
         for card in product_cards:
-            # Extract product name
-            product_name = card.find_element(By.CLASS_NAME, 'wccom-card__title').text.strip()
-
-            # Extract product link
-            product_link = card.find_element(By.CLASS_NAME, 'wccom-card__title-link').get_attribute('href')
-
-            # Extract vendor name and remove "by"
-            vendor_name = card.find_element(By.CLASS_NAME, 'wccom-card__vendor').text.strip().replace('by', '').strip()
-
-            # Extract product description
-            description = card.find_element(By.CLASS_NAME, 'wccom-card__content').text.strip()
-
-            # Ratingni descriptiondan olish (agar mavjud bo'lsa)
-            if "Rated" in description:
-                rating = description.split("Rated")[1].split("out")[0].strip()
-            else:
-                rating = None  # Agar descriptionda rating bo'lmasa, None
-
-            # Extract price, and handle "Free download" case
             try:
-                price_text = card.find_element(By.CLASS_NAME, 'wccom-product-card__price').text.strip()
-                if 'Free download' in price_text:
-                    price = 'Free'
-                else:
-                    price = price_text
-            except:
-                price = 'Price Not Listed'  # If no price element found, set a default message
+                # Mahsulot ma'lumotlarini olish
+                product_name = card.find_element(By.CLASS_NAME, 'wccom-card__title').text.strip()
+                product_link = card.find_element(By.CLASS_NAME, 'wccom-card__title-link').get_attribute('href')
+                vendor_name = card.find_element(By.CLASS_NAME, 'wccom-card__vendor').text.strip().replace('by',
+                                                                                                          '').strip()
+                description = card.find_element(By.CLASS_NAME, 'wccom-card__content').text.strip()
 
-            # Extract review count
-            reviews = re.search(r'\((\d+)\)', description)
-            reviews = reviews.group(1) if reviews else None
+                # Tavsif va reytingni ajratish
+                rating = None
+                if "Rated" in description:
+                    rating = description.split("Rated")[1].split("out")[0].strip()
 
-            # Print the extracted information
-            print(f"Product Name: {product_name}")
-            print(f"Product Link: {product_link}")
-            print(f"Vendor Name: {vendor_name}")
-            print(f"Description: {description}")
-            print(f"Rating: {rating}")
-            print(f"Reviews: {reviews}")
-            print(f"Price: {price}")
-            print("-" * 50)
+                reviews = re.search(r'\((\d+)\)', description)
+                reviews = reviews.group(1) if reviews else None
 
-            # Save the product data into the SQLite database using Django ORM
-            Product.objects.create(
-                name=product_name,
-                link=product_link,
-                vendor_name=vendor_name,
-                description=description,
-                rating=rating,
-                reviews=reviews,
-                price=price
-            )
+                # Narxni olish
+                try:
+                    price_element = WebDriverWait(card, 2).until(
+                        EC.presence_of_element_located((By.CLASS_NAME, 'wccom-product-card__price'))
+                    )
+                    raw_price = price_element.text.strip()
 
-        # Check for the "Next Page" button and navigate to the next page
+                    if 'Loading price' in raw_price:
+                        time.sleep(2)
+                        raw_price = price_element.text.strip()
+
+                    if 'Free download' in raw_price:
+                        price = 'Free'
+                    else:
+                        price = clean_price(raw_price)
+
+                except Exception as e:
+                    print(f"Price olishda xato: {e}")
+                    price = 'Price Not Listed'
+                if Product.objects.filter(link=product_link).exists():
+                    print(f"🔸 {product_name} - bu mahsulot allaqachon mavjud. Davom etmoqda...")
+                    continue  # Mahsulot mavjud bo'lsa, davom etish
+
+                # Ma'lumotlarni terminalga chiqarish
+                print(f"🔹 Product Name: {product_name}")
+                print(f"🔹 Product Link: {product_link}")
+                print(f"🔹 Vendor Name: {vendor_name}")
+                print(f"🔹 Description: {description[:60]}...")
+                print(f"🔹 Rating: {rating}")
+                print(f"🔹 Reviews: {reviews}")
+                print(f"🔹 Price: {price}")
+                print("=" * 60)
+
+                # Django ORM orqali ma'lumotlarni saqlash
+                Product.objects.create(
+                    name=product_name,
+                    link=product_link,
+                    vendor_name=vendor_name,
+                    description=description,
+                    rating=rating,
+                    reviews=reviews,
+                    price=price,
+                    created_at=timezone.now()
+                )
+
+            except Exception as e:
+                print(f"Karta o‘qishda xato: {e}")
+
+        # Sahifada navbatdagi sahifani topish
         try:
-            next_button = wait.until(EC.element_to_be_clickable((By.LINK_TEXT, 'Next »')))
-            next_button.click()
-            time.sleep(3)  # Wait for the next page to load
-        except:
-            print("No more pages to scrape.")
-            break  # Exit the loop if there's no next page
+            next_button = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'a.page-numbers.next')))
+            next_page = next_button.get_attribute('href')
+
+            if next_page:
+                print(f"Keyingi sahifa: {next_page}")
+                page_count += 1
+                time.sleep(3)
+            else:
+                print("✅ Barcha sahifalar tugadi.")
+                break
+
+        except Exception as e:
+            print(f"Sahifa o‘tkazishda xato: {e}")
+            break
 
     except Exception as e:
-        print(f"An error occurred: {e}")
-        break  # Exit the loop on error
+        print(f"Umumiy xato: {e}")
+        break
 
-# Close the WebDriver
+# Brauzerni yopish
 driver.quit()

@@ -8,6 +8,7 @@ class Product(models.Model):
     rating = models.FloatField(null=True, blank=True)  # Rating optional bo'lishi mumkin
     reviews = models.IntegerField(null=True, blank=True)  # Agar mavjud bo'lsa, bu maydonni saqlash
     price = models.CharField(max_length=255)  # Agar narx har doim matn bo'lsa
-
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     def __str__(self):
         return self.name
